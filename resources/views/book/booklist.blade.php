@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bliss - Book List</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
+        /* Ensure the html and body take up the full height of the viewport */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f5f0eb;
             color: #1d1d1f;
+            flex: 1; /* Allow the body to grow and fill the available space */
         }
 
         header {
@@ -65,6 +72,7 @@
             flex-wrap: wrap;
             justify-content: space-around;
             padding: 40px;
+            flex: 1; /* Allow the book list to grow and fill the available space */
         }
 
         .book-card {
@@ -77,9 +85,11 @@
         }
 
         .book-card img {
-            width: 100%;
-            height: auto;
+            width: 200px; /* Fixed width */
+            height: 300px; /* Fixed height */
+            object-fit: cover; /* Ensure the image fills the space without distortion */
             margin-bottom: 15px;
+            border-radius: 8px; /* Optional: Add rounded corners */
         }
 
         .book-card h2 {
@@ -107,7 +117,7 @@
             color: white;
             text-align: center;
             padding: 20px;
-            margin-top: 40px;
+            margin-top: auto; /* Push the footer to the bottom */
         }
 
         footer p {
@@ -119,59 +129,19 @@
     @include('includes.navigationbar') <!-- Include the navigation bar -->
 
     <section class="book-list">
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book1.jpg') }}" alt="The First 90 Days">
-            <h2>The First 90 Days</h2>
-            <p>Author: Michael D. Watkins</p>
-            <p>This book provides a roadmap for taking charge in the first 90 days of a new job, offering strategies to help you transition smoothly and effectively.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
-
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book2.jpg') }}" alt="Hooked">
-            <h2>Hooked</h2>
-            <p>Author: Nir Eyal</p>
-            <p>Learn how to build habit-forming products that keep users engaged and coming back for more.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
-
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book3.jpg') }}" alt="The Subtle Art of Not Giving a F*ck">
-            <h2>The Subtle Art of Not Giving a F*ck</h2>
-            <p>Author: Mark Manson</p>
-            <p>A counterintuitive approach to living a good life, focusing on what truly matters and letting go of the rest.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
-
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book4.jpg') }}" alt="Atomic Habits">
-            <h2>Atomic Habits</h2>
-            <p>Author: James Clear</p>
-            <p>Discover how small changes can lead to remarkable results and learn practical strategies for building good habits and breaking bad ones.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
-
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book5.jpg') }}" alt="The Psychology of Money">
-            <h2>The Psychology of Money</h2>
-            <p>Author: Morgan Housel</p>
-            <p>Explore the complex relationship between money and human behavior, and learn how to make better financial decisions.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
-
-        <div class="book-card">
-            <img src="{{ asset('bookCover/book6.jpg') }}" alt="Deep Work">
-            <h2>Deep Work</h2>
-            <p>Author: Cal Newport</p>
-            <p>Learn how to focus intensely and produce high-quality work in a distracted world.</p>
-            <button class="read-more-btn">Read More →</button>
-        </div>
+        @foreach($books as $book)
+            <div class="book-card">
+                <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+                <h2>{{ $book->title }}</h2>
+                <p>Author: {{ $book->author }}</p>
+                <p>{{ $book->description }}</p>
+                <button class="read-more-btn">Read More →</button>
+            </div>
+        @endforeach
     </section>
 
-    <footer>
-        <p>&copy; 2023 Bliss. All rights reserved.</p>
-    </footer>
+    @include('includes.footer') <!-- Include the footer -->
 
-    <script src="script.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

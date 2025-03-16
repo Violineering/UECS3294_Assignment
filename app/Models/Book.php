@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Book extends Model
+{
+    use HasFactory;
+
+    protected $table = 'tbl_books'; // Specify the table name
+
+    protected $fillable = [
+        'title',
+        'author',
+        'isbn',
+        'publisher',
+        'publication_year',
+        'genre',
+        'language',
+        'pages',
+        'description',
+        'cover_image',
+        'availability',
+        'stock',
+        'pdf_file',
+    ];
+}
