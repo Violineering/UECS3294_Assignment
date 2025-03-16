@@ -163,22 +163,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Bliss.</div>
-            <ul class="nav-links">
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Books</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Categories</a></li>
-            </ul>
-            <div class="search-bar">
-                <input type="text" placeholder="Search book here...">
-                <button>🔍</button>
-            </div>
-            <button class="create-account">Create Account</button>
-        </nav>
-    </header>
+    @include('includes.navigationbar') <!-- Include the navigation bar -->
 
     <div class = "main-canvas">
     <section class="hero">
