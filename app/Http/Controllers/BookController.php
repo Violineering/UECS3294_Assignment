@@ -15,4 +15,12 @@ class BookController extends Controller
         // Pass the books data to the view
         return view('book.booklist', compact('books'));
     }
+
+    public function welcome()
+    {
+        $books = Book::take(9)->get(); 
+
+        // Pass books to the welcome page
+        return view('welcome', compact('books'));
+    }
 }

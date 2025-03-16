@@ -108,22 +108,45 @@
         }
 
         .books-container {
-            width: 600px;
             overflow: hidden;
             display: flex;
             justify-content: center;
+            height: 350px;
+            margin-top: 80px;
+            width: 600px;
         }
 
         .books {
             display: flex;
             justify-content: center;
             transition: opacity 0.5s ease-in-out;
+            gap: 10px;
+        }
+
+        .books img:nth-child(1) {
+            position: relative;
+            top: 0px;
+            left: -20px;
+        }
+
+        .books img:nth-child(2) {
+            position: relative;
+            top: 80px;
+            left: 10px;
+        }
+
+        .books img:nth-child(3) {
+            position: relative;
+            top: 160px;
+            left: 30px;
         }
 
         .books img {
             height: 200px;
+            width: 120px;
             margin: 0 20px;
             transition: opacity 0.3s;
+            
         }
 
         .nav-btn {
@@ -189,11 +212,12 @@
 
         <section class="book-showcase">
             <div class="books-container">
-                <div class="books">
-                    <img src="{{ asset('bookCover/book1.jpg') }}" alt="The First 90 Days">
-                    <img src="{{ asset('bookCover/book2.jpg') }}" alt="Hooked">
-                    <img src="{{ asset('bookCover/book3.jpg') }}" alt="The Subtle Art of Not Giving a F*ck">
-                </div>
+            <div class="books">
+                @foreach($books->take(3) as $book)
+                    <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+                @endforeach
+            </div>
+
             </div>
             <div class="button-container">
                 <button class="nav-btn left-btn">◀</button>
@@ -217,34 +241,22 @@
             const rightBtn = document.querySelector(".right-btn");
 
             const bookSets = [
-                [
-                    "{{ asset('bookCover/book1.jpg') }}",
-                    "{{ asset('bookCover/book2.jpg') }}",
-                    "{{ asset('bookCover/book3.jpg') }}"
-                ],
-                [
-                    "{{ asset('bookCover/book4.jpg') }}",
-                    "{{ asset('bookCover/book5.jpg') }}",
-                    "{{ asset('bookCover/book6.jpg') }}"
-                ],
-                [
-                    "{{ asset('bookCover/book7.jpg') }}",
-                    "{{ asset('bookCover/book8.jpg') }}",
-                    "{{ asset('bookCover/book9.jpg') }}"
-                ]
+                @foreach($books->chunk(3) as $chunk) 
+                    [
+                        @foreach($chunk as $book) "{{ asset($book->cover_image) }}", @endforeach
+                    ],
+                @endforeach
             ];
 
             let currentSet = 0;
 
             function updateBooks() {
-                booksContainer.style.opacity = 0; // Fade out
+                booksContainer.style.opacity = 0; 
                 setTimeout(() => {
-                    booksContainer.innerHTML = `
-                        <img src="${bookSets[currentSet][0]}" alt="Book 1">
-                        <img src="${bookSets[currentSet][1]}" alt="Book 2">
-                        <img src="${bookSets[currentSet][2]}" alt="Book 3">
-                    `;
-                    booksContainer.style.opacity = 1; // Fade in
+                    booksContainer.innerHTML = bookSets[currentSet].map(book => 
+                        `<img src="${book}" alt="Book">`
+                    ).join('');
+                    booksContainer.style.opacity = 1;
                 }, 300);
             }
 
@@ -260,5 +272,6 @@
         });
     </script>
 
+@include('includes.footer')
 </body>
 </html>
