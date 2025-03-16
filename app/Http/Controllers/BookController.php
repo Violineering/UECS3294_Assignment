@@ -23,4 +23,10 @@ class BookController extends Controller
         // Pass books to the welcome page
         return view('welcome', compact('books'));
     }
+    // Method to display the book introduction page
+    public function showBook($book_id)
+    {
+        $book = Book::findOrFail($book_id); // Fetch the book by ID
+        return view('book.introduction_book', compact('book'));
+    }
 }

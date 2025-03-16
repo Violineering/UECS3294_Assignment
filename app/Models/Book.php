@@ -10,7 +10,8 @@ class Book extends Model
     use HasFactory;
 
     protected $table = 'tbl_books'; // Specify the table name
-
+    protected $primaryKey = 'book_id'; // Specify the primary key column
+    
     protected $fillable = [
         'title',
         'author',

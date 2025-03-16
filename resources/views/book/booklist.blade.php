@@ -135,7 +135,7 @@
                 <h2>{{ $book->title }}</h2>
                 <p>Author: {{ $book->author }}</p>
                 <p>{{ $book->description }}</p>
-                <button class="read-more-btn">Read More →</button>
+                <button class="read-more-btn" onclick="window.location.href='{{ route('book.introduction_book', $book->book_id) }}'">Read More →</button>
             </div>
         @endforeach
     </section>
