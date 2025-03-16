@@ -85,9 +85,11 @@
         }
 
         .book-card img {
-            width: 100%;
-            height: auto;
+            width: 200px; /* Fixed width */
+            height: 300px; /* Fixed height */
+            object-fit: cover; /* Ensure the image fills the space without distortion */
             margin-bottom: 15px;
+            border-radius: 8px; /* Optional: Add rounded corners */
         }
 
         .book-card h2 {
