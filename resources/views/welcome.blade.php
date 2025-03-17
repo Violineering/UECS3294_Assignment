@@ -112,7 +112,7 @@
             display: flex;
             justify-content: center;
             height: 350px;
-            margin-top: 80px;
+            margin-top: 20px;
             width: 600px;
         }
 
@@ -166,9 +166,8 @@
 
         .stats {
             font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 10px;
+            font-weight: bold;  
+            margin-top: 60px;
         }
 
         /* Best Seller */
@@ -211,6 +210,7 @@
         </section>
 
         <section class="book-showcase">
+            <div class="stats">20k+ Books</div>
             <div class="books-container">
             <div class="books">
                 @foreach($books->take(3) as $book)
@@ -226,7 +226,7 @@
         </section>
     </div>
 
-    <div class="stats">20k+ Books</div>
+    
 
     <section class="best-seller">
         <div class="badge">Best Seller</div>

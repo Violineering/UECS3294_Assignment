@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\mainPage;
 use App\Models\Book;
 
 
@@ -16,7 +17,7 @@ use App\Models\Book;
 |
 */
 
-Route::get('/', [BookController::class, 'welcome'])->name('welcome');
+Route::get('/', [mainPage::class, 'welcome'])->name('welcome');
 
 Route::get('/book/booklist', function () {
     return view('book.booklist');

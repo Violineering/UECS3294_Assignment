@@ -16,13 +16,7 @@ class BookController extends Controller
         return view('book.booklist', compact('books'));
     }
 
-    public function welcome()
-    {
-        $books = Book::take(9)->get(); 
-
-        // Pass books to the welcome page
-        return view('welcome', compact('books'));
-    }
+    
     // Method to display the book introduction page
     public function showBook($book_id)
     {
