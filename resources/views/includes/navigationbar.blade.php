@@ -1,4 +1,20 @@
 <style>
+header {
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
 /* Search Bar Styling */
 .search-container {
     display: flex;
@@ -42,6 +58,11 @@
 .logo-link{
     text-decoration: none;
     color: black;
+    font-style: oblique;
+    font-family: "Times New Roman", serif;
+    font-size: 30px;
+    margin-right: 70px;
+    margin-left: 40px;
 }
 
 .create-account{
@@ -50,6 +71,11 @@
     border: 2px solid black;
     margin-left: 10px;
     font-size: 16px;
+    margin-right: -60px;
+}
+
+li a{
+    padding: 15px;
 }
 
 </style>
@@ -57,7 +83,7 @@
 <header>
     <nav>
         <div class="logo">
-            <a href="{{ url('/') }}" class="logo-link">Bliss</a> <!-- Link to home page -->
+            <a href="{{ url('/') }}" class="logo-link">Unpopular.</a> <!-- Link to home page -->
         </div>
         <ul class="nav-links">
             <li><a href="#">Contact Us</a></li>

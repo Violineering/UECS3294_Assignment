@@ -15,5 +15,5 @@
 </style>
 
 <footer>
-        <p>&copy; 2023 Bliss. All rights reserved.</p>
+        <p>&copy; 2025 Unpopular. All rights reserved.</p>
 </footer>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bliss - Online Bookstore</title>
+    <title>Unpopular. - Online Bookstore</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -12,21 +12,6 @@
             padding: 0;
             background-color: #f5f0eb;
             color: #1d1d1f;
-        }
-
-        header {
-            background-color: #fff;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 80%;
         }
 
         .logo {
@@ -178,25 +163,76 @@
             text-align: center;
             width: 80%;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bestSellerBook {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: max-content; /* Ensures it expands based on content */s
         }
 
-        .best-seller .badge {
-            background-color: yellow;
-            color: black;
+        .book-slide {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .book-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 180px;
+        }
+
+        .book-item img {
+            width: 150px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .best-seller .title {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 20px;
+        }
+
+        .badge {
+            font-size: 30px;
+            margin-left: 10px;
             font-weight: bold;
-            padding: 5px;
-            position: absolute;
-            left: 10px;
-            top: 10px;
         }
 
-        .best-seller img {
-            width: 200px;
+        /* Dots for Pagination */
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
         }
 
-        .best-seller p {
-            font-size: 18px;
+        .dot {
+            width: 12px;
+            height: 12px;
+            margin: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
+
+        .dot.active {
+            background-color: #1d1d1f;
+        }
+
+
     </style>
 </head>
 <body>
@@ -226,11 +262,33 @@
         </section>
     </div>
 
-    
-
     <section class="best-seller">
-        <div class="badge">Best Seller</div>
-        <img src="psychology-of-money.jpg" alt="The Psychology of Money">
+        <div class="title">
+            <img class="hotIcon" src="{{ asset('icon/hot.png') }}" height="30px">
+            <h2 class="badge">Best Seller</h2>
+        </div>
+        
+        <div class="bestSellerBookContainer">
+            <div class="bestSellerBook">
+                    <div class="book-slide">
+                        @foreach($books as $book)
+                            <div class="book-item">
+                                <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+                                <h2>{{ $book->title }}</h2>
+                                <p>Author: {{ $book->author }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+            </div>
+        </div>
+
+        <!-- Dots for Navigation -->
+        <div class="dots">
+            @for ($i = 0; $i < ceil($books->count() / 5); $i++)
+                <span class="dot" onclick="moveToSlide({{ $i }})"></span>
+            @endfor
+        </div>
+
         <p>Our most popular and trending <strong>eBooks</strong> perfect for any reading mood.</p>
     </section>
 
@@ -269,6 +327,42 @@
                 currentSet = (currentSet - 1 + bookSets.length) % bookSets.length;
                 updateBooks();
             });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const bestSellerBook = document.querySelector(".bestSellerBook");
+            const dots = document.querySelectorAll(".dot");
+            let currentIndex = 0;
+            const totalSlides = dots.length;
+
+            function updateSlider() {
+                bestSellerBook.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle("active", i === currentIndex);
+                });
+            }
+
+            function moveToSlide(index) {
+                currentIndex = index;
+                updateSlider();
+            }
+
+            function autoScroll() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider();
+            }
+
+            let slideInterval = setInterval(autoScroll, 5000);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    moveToSlide(index);
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(autoScroll, 5000);
+                });
+            });
+
+            updateSlider();
         });
     </script>
 
