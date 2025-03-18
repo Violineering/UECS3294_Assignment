@@ -28,3 +28,4 @@ Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.bo
 // Route for the book introduction page
 Route::get('/book/{book_id}', [BookController::class, 'showBook'])->name('book.introduction_book');
 
+

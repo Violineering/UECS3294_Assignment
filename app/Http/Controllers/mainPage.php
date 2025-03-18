@@ -14,4 +14,5 @@ class mainPage extends Controller
         // Pass books to the welcome page
         return view('welcome', compact('books'));
     }
+
 }
