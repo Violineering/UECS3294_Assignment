@@ -39,6 +39,11 @@
         .logo {
             font-size: 24px;
             font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -51,12 +56,23 @@
             text-decoration: none;
             color: #1d1d1f;
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #007AFF;
         }
 
         .search-bar input {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007AFF;
+            outline: none;
         }
 
         .create-account {
@@ -65,6 +81,12 @@
             padding: 8px 15px;
             cursor: pointer;
             font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .create-account:hover {
+            background-color: #1d1d1f;
+            color: white;
         }
 
         .book-intro {
@@ -73,11 +95,24 @@
             align-items: flex-start;
             padding: 40px;
             gap: 40px;
+            opacity: 0; /* Start hidden for fade-in animation */
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         .book-cover {
             flex: 1;
             max-width: 400px;
+            transition: transform 0.3s ease;
+        }
+
+        .book-cover:hover {
+            transform: scale(1.05);
         }
 
         .book-cover img {
@@ -95,18 +130,43 @@
         .book-details h1 {
             font-size: 32px;
             margin-bottom: 10px;
+            animation: slideIn 1s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .book-details p {
             font-size: 16px;
             color: #333;
             margin-bottom: 15px;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .book-details .availability {
             font-size: 18px;
             font-weight: bold;
             color: {{ $book->availability === 'available' ? 'green' : 'red' }};
+            animation: fadeIn 1s ease forwards;
         }
 
         footer {
@@ -115,6 +175,8 @@
             text-align: center;
             padding: 20px;
             margin-top: auto; /* Push the footer to the bottom */
+            opacity: 0; /* Start hidden for fade-in animation */
+            animation: fadeIn 1.5s ease forwards;
         }
 
         footer p {
