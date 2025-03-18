@@ -173,6 +173,13 @@
             width: max-content; /* Ensures it expands based on content */s
         }
 
+        .bestSellerBookContainer {
+            position: relative;
+            width: 80%;
+            margin: auto;
+            overflow: hidden; /* Hide overflowing books */
+        }
+
         .book-slide {
             display: flex;
             justify-content: center;
@@ -270,8 +277,9 @@
         
         <div class="bestSellerBookContainer">
             <div class="bestSellerBook">
+                @foreach($books->chunk(5) as $chunk)
                     <div class="book-slide">
-                        @foreach($books as $book)
+                        @foreach($chunk as $book)
                             <div class="book-item">
                                 <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
                                 <h2>{{ $book->title }}</h2>
@@ -279,8 +287,10 @@
                             </div>
                         @endforeach
                     </div>
+                @endforeach
             </div>
         </div>
+
 
         <!-- Dots for Navigation -->
         <div class="dots">
@@ -333,10 +343,11 @@
             const bestSellerBook = document.querySelector(".bestSellerBook");
             const dots = document.querySelectorAll(".dot");
             let currentIndex = 0;
-            const totalSlides = dots.length;
+            const totalSlides = document.querySelectorAll(".book-slide").length;
 
             function updateSlider() {
-                bestSellerBook.style.transform = `translateX(-${currentIndex * 100}%)`;
+                const offset = -currentIndex * 100;
+                bestSellerBook.style.transform = `translateX(${offset}%)`;
                 dots.forEach((dot, i) => {
                     dot.classList.toggle("active", i === currentIndex);
                 });
