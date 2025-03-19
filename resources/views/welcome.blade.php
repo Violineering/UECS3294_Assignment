@@ -6,6 +6,14 @@
     <title>Unpopular. - Online Bookstore</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        html, body {
+            height: auto;
+            min-height: 100%; 
+            margin: 0;
+            display: block;
+            overflow-y: auto; 
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
