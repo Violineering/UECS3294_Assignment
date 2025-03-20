@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 
-class mainPage extends Controller
+class WelcomeController extends Controller
 {
     public function welcome()
     {
