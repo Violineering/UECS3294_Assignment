@@ -26,9 +26,13 @@ Route::get('/book/booklist', function () {
 
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
 
-// Route for the book introduction page
+
 Route::get('/book/{book_id}', [BookController::class, 'showBook'])->name('book.introduction_book');
 
 Route::get('/admin/bookManaging', [AdminBookManagingController::class, 'listAllBook'])->name('admin.bookManaging');
+
+Route::get('/admin/updateBook/{id}', [AdminBookManagingController::class, 'showUpdate'])
+    ->name('admin.showUpdate');
+Route::post('/admin/updateBook/{id}', [AdminBookManagingController::class, 'updateBook'])->name('admin.updateBook');
 
 

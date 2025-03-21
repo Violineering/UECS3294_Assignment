@@ -14,7 +14,7 @@
 
     /* Collapsed Sidebar */
     .sidebar.collapsed {
-        width: 60px;
+        width: 40px;
         overflow: hidden;
     }
 
@@ -84,7 +84,19 @@
 
 <script>
     function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("collapsed");
+    var sidebar = document.getElementById("sidebar");
+    var booklist = document.querySelector(".booklist");
+
+    sidebar.classList.toggle("collapsed");
+
+    // Adjust booklist margin based on sidebar state
+    if (sidebar.classList.contains("collapsed")) {
+        booklist.style.marginLeft = "90px";
+        booklist.style.width = "calc(100% - 90px)";
+    } else {
+        booklist.style.marginLeft = "300px";
+        booklist.style.width = "calc(100% - 300px)";
     }
+}
+
 </script>

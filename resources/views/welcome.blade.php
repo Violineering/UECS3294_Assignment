@@ -265,7 +265,7 @@
             <div class="books-container">
             <div class="books">
                 @foreach($books->take(3) as $book)
-                    <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
                 @endforeach
             </div>
 
@@ -289,7 +289,7 @@
                     <div class="book-slide">
                         @foreach($chunk as $book)
                             <div class="book-item">
-                                <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+                                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
                                 <h2>{{ $book->title }}</h2>
                                 <p>Author: {{ $book->author }}</p>
                             </div>
@@ -319,7 +319,7 @@
             const bookSets = [
                 @foreach($books->chunk(3) as $chunk) 
                     [
-                        @foreach($chunk as $book) "{{ asset($book->cover_image) }}", @endforeach
+                        @foreach($chunk as $book) "{{ asset('storage/' . $book->cover_image) }}", @endforeach
                     ],
                 @endforeach
             ];

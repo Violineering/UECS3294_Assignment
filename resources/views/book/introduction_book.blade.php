@@ -121,7 +121,7 @@
 
     <section class="book-intro">
         <div class="book-cover">
-            <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
         </div>
         <div class="book-details">
             <h1>{{ $book->title }}</h1>

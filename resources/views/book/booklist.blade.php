@@ -131,7 +131,7 @@
     <section class="book-list">
         @foreach($books as $book)
             <div class="book-card">
-                <img src="{{ asset($book->cover_image) }}" alt="{{ $book->title }}">
+            <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
                 <h2>{{ $book->title }}</h2>
                 <p>Author: {{ $book->author }}</p>
                 <p>{{ $book->description }}</p>

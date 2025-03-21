@@ -10,6 +10,24 @@
             background-color: #f5f0eb;
         }
 
+        .title{
+            display: flex;
+            align-items: justify; 
+            justify-content: space-between; /* Pushes the button to the right */
+        }
+
+        .addNewBtn{
+            background-color:rgb(219, 219, 219);
+            border: none;
+            height: 40px;
+            line-height: normal; 
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 18px;
+        }
+
         .table-container {
             width: 100%;
             overflow-x: auto;
@@ -21,6 +39,14 @@
             min-width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
+        }
+
+        td:nth-child(5), /* Publication Year */
+        td:nth-child(6), /* Genre */
+        td:nth-child(7), /* Language */
+        td:nth-child(8),  /* Pages */ 
+        td:nth-child(10)  /* Cover img */ {
+            text-align: center;
         }
 
         th, td {
@@ -139,19 +165,19 @@
             font-weight: bold;
         }
 
-        /* Main Content */
         .booklist {
-            margin-left: 250px;
+            margin-left: 300px; /* Default when sidebar is open */
             padding: 20px;
             transition: margin-left 0.3s ease;
-            background-color: white; 
-            border: 1px solid black; 
+            background-color: white;
+            border: 1px solid black;
             border-radius: 10px;
         }
 
         /* When Sidebar is Collapsed */
-        .sidebar.collapsed + .content {
-            margin-left: 60px;
+        .sidebar.collapsed ~ .booklist {
+            margin-left: 90px; 
+            width: calc(100% - 90px); /* Expand content width */
         }
     </style>
 </head>
@@ -162,69 +188,63 @@
 
     <!-- Main Content -->
     <div class="booklist">
-    <h1>Booklist</h1>
-    <div class="table-container">
-        <table border="1">
-            <colgroup>
-                <col style="width: 15%;">  <!-- Operation -->
-                <col style="width: 30%;">  <!-- Title -->
-                <col style="width: 20%;">  <!-- Author -->
-                <col style="width: 20%;">  <!-- Publisher -->
-                <col style="width: 6%;">  <!-- Year -->
-                <col style="width: 10%;">  <!-- Genre -->
-                <col style="width: 10%;">  <!-- Language -->
-                <col style="width: 5%;">   <!-- Pages -->
-                <col style="width: 30%;">  <!-- Description -->
-                <col style="width: 15%;">  <!-- Cover Image -->
-                <col style="width: 15%;">  <!-- PDF File -->
-            </colgroup>
-            <thead>
-                <tr>
-                    <th>Operation</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Publisher</th>
-                    <th>Publication Year</th>
-                    <th>Genre</th>
-                    <th>Language</th>
-                    <th>Pages</th>
-                    <th>Description</th>
-                    <th>Cover Image</th>
-                    <th>Content(pdf)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($books as $book)
-                <tr>
-                    <td>
-                        <div class="dropdown">
-                            <button class="actionBtn" onclick="toggleDropdown(this)">Action ▼</button>
-                            <div class="dropdown-content">
-                                <a href="#">Edit</a>
-                                <a href="#">Delete</a>
+        <div class= "title">
+            <h1>Booklist</h1>
+            <button class="addNewBtn">+ New</button>
+        </div>
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Publication Year</th>
+                        <th>Genre</th>
+                        <th>Language</th>
+                        <th>Pages</th>
+                        <th>Description</th>
+                        <th>Cover Image</th>
+                        <th>Content(pdf)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($books as $book)
+                    <tr>
+                        <td>
+                            <div class="dropdown">
+                                <button class="actionBtn" onclick="toggleDropdown(this)">Action ▼</button>
+                                <div class="dropdown-content">
+                                    <a href = {{"updateBook/".$book['book_id']}}>Edit</a>
+                                    <a href="#">Delete</a>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>{{$book->title}}</td>
-                    <td>{{$book->author}}</td>
-                    <td>{{$book->publisher}}</td>
-                    <td>{{$book->publication_year}}</td>
-                    <td>{{$book->genre}}</td>
-                    <td>{{$book->language}}</td>
-                    <td>{{$book->pages}}</td>
-                    <td>{{$book->description}}</td>
-                    <td>{{$book->cover_image}}</td>
-                    <td>{{$book->pdf_file}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </td>
+                        <td>{{$book->title}}</td>
+                        <td>{{$book->author}}</td>
+                        <td>{{$book->publisher}}</td>
+                        <td>{{$book->publication_year}}</td>
+                        <td>{{$book->genre}}</td>
+                        <td>{{$book->language}}</td>
+                        <td>{{$book->pages}}</td>
+                        <td>{{$book->description}}</td>
+                        <td><img src="{{ asset('storage/' . $book->cover_image) }}" height="150" alt="Book Cover"></td>
+                        <td>@if ($book->pdf_file)
+                                <a href="{{ asset('storage/' . $book->pdf_file) }}" download>Download Current PDF</a>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <span>
+            {{$books->links('pagination::bootstrap-4')}}
+        </span>
     </div>
 
-    <span>
-        {{$books->links('pagination::bootstrap-4')}}
-    </span>
-</div>
     <script>
         function toggleDropdown(button) {
             var dropdownContent = button.nextElementSibling;
