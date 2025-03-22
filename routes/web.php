@@ -31,8 +31,7 @@ Route::get('/book/{book_id}', [BookController::class, 'showBook'])->name('book.i
 
 Route::get('/admin/bookManaging', [AdminBookManagingController::class, 'listAllBook'])->name('admin.bookManaging');
 
-Route::get('/admin/updateBook/{id}', [AdminBookManagingController::class, 'showUpdate'])
-    ->name('admin.showUpdate');
+Route::get('/admin/updateBook/{id}', [AdminBookManagingController::class, 'showUpdate'])->name('admin.showUpdate');
 Route::post('/admin/updateBook/{id}', [AdminBookManagingController::class, 'updateBook'])->name('admin.updateBook');
 
 

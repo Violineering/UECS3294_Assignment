@@ -13,7 +13,7 @@
         .title{
             display: flex;
             align-items: justify; 
-            justify-content: space-between; /* Pushes the button to the right */
+            justify-content: space-between; 
         }
 
         .addNewBtn{
