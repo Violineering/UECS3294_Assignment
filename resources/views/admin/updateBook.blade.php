@@ -29,6 +29,8 @@
     <input type = "text" name = "pages" value="{{ $book['pages'] }}" ><br><br>
     <label>Description: </label>
     <input type = "text" name = "description" value="{{ $book['description'] }}" ><br><br>
+    <label>Availability: </label>
+    <input type = "text" name = "availability" value="{{ $book['availability'] }}" ><br><br>
 
     <!-- Book Cover Upload -->
     <label>Book Cover: </label>

@@ -33,6 +33,7 @@ class AdminBookManagingController extends Controller
         $book->language = $req->language;
         $book->pages = $req->pages;
         $book->description = $req->description;
+        $book->availability = $req->availability;
     
         // Handle Book Cover Image Upload
         if ($req->hasFile('cover_image')) {
@@ -65,5 +66,38 @@ class AdminBookManagingController extends Controller
         $book = Book::find($book_id);
         return view("admin.updateBook", ['book' => $book]);
     }
+
+
+    public function addBook(Request $req)
+    {
+        $book = new Book;
+        $book->title = $req->title;
+        $book->author = $req->author;
+        $book->isbn = $req->isbn;
+        $book->publisher = $req->publisher;
+        $book->publication_year = $req->publication_year;
+        $book->genre = $req->genre;
+        $book->language = $req->language;
+        $book->pages = $req->pages;
+        $book->description = $req->description;
+        $book->availability = $req->availability;
+
+        // Handle Book Cover Upload
+        if ($req->hasFile('cover_image')) {
+            $coverImagePath = $req->file('cover_image')->store('images/book_cover', 'public');
+            $book->cover_image = $coverImagePath;
+        }
+
+        // Handle PDF File Upload
+        if ($req->hasFile('pdf_file')) {
+            $pdfFilePath = $req->file('pdf_file')->store('pdfs', 'public');
+            $book->pdf_file = $pdfFilePath;
+        }
+
+        $book->save();
+
+        return redirect()->route('admin.bookManaging')->with('success', 'Book added successfully!');
+    }
+
 
 }

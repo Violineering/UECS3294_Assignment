@@ -34,4 +34,9 @@ Route::get('/admin/bookManaging', [AdminBookManagingController::class, 'listAllB
 Route::get('/admin/updateBook/{id}', [AdminBookManagingController::class, 'showUpdate'])->name('admin.showUpdate');
 Route::post('/admin/updateBook/{id}', [AdminBookManagingController::class, 'updateBook'])->name('admin.updateBook');
 
+Route::post('/addBook', [AdminBookManagingController::class, 'addBook'])->name('admin.addBook');
+Route::get('/addBook', function () {
+    return view('admin.addBook');
+})->name('admin.addBook');
+
 
