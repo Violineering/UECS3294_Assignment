@@ -45,7 +45,8 @@
         td:nth-child(6), /* Genre */
         td:nth-child(7), /* Language */
         td:nth-child(8),  /* Pages */ 
-        td:nth-child(10)  /* Cover img */ {
+        td:nth-child(9),  /* Availability */ 
+        td:nth-child(11)  /* Cover img */ {
             text-align: center;
         }
 
@@ -189,7 +190,7 @@
     <!-- Main Content -->
     <div class="booklist">
         <div class= "title">
-            <h1>Booklist</h1>
+            <h1>BookList</h1>
             <button class="addNewBtn"><a href="{{ route('admin.addBook') }}" style="text-decoration: none; color: black;">+ New</a></button>
         </div>
         <div class="table-container">
@@ -204,6 +205,7 @@
                         <th>Genre</th>
                         <th>Language</th>
                         <th>Pages</th>
+                        <th>Availability</th>
                         <th>Description</th>
                         <th>Cover Image</th>
                         <th>Content(pdf)</th>
@@ -228,6 +230,7 @@
                         <td>{{$book->genre}}</td>
                         <td>{{$book->language}}</td>
                         <td>{{$book->pages}}</td>
+                        <td>{{$book->availability}}</td>
                         <td>{{$book->description}}</td>
                         <td><img src="{{ asset('storage/' . $book->cover_image) }}" height="150" alt="Book Cover"></td>
                         <td>@if ($book->pdf_file)
