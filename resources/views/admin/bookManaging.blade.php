@@ -170,8 +170,8 @@
             padding: 20px;
             transition: margin-left 0.3s ease;
             background-color: white;
-            border: 1px solid black;
             border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* When Sidebar is Collapsed */
@@ -217,7 +217,7 @@
                                 <button class="actionBtn" onclick="toggleDropdown(this)">Action ▼</button>
                                 <div class="dropdown-content">
                                     <a href = {{"updateBook/".$book['book_id']}}>Edit</a>
-                                    <a href="#">Delete</a>
+                                    <a href="{{ route('admin.deleteBook', ['book_id' => $book->book_id]) }}" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>
                                 </div>
                             </div>
                         </td>

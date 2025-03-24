@@ -99,5 +99,29 @@ class AdminBookManagingController extends Controller
         return redirect()->route('admin.bookManaging')->with('success', 'Book added successfully!');
     }
 
+    public function deleteBook($book_id)
+{
+    $book = Book::find($book_id);
+
+    if (!$book) {
+        return redirect()->route('admin.bookManaging')->with('error', 'Book not found.');
+    }
+
+    // Delete book cover image from storage
+    if ($book->cover_image) {
+        Storage::delete('public/' . $book->cover_image);
+    }
+
+    // Delete PDF file from storage
+    if ($book->pdf_file) {
+        Storage::delete('public/' . $book->pdf_file);
+    }
+
+    // Delete the book record from the database
+    $book->delete();
+
+    return redirect()->route('admin.bookManaging')->with('success', 'Book deleted successfully.');
+}
+
 
 }

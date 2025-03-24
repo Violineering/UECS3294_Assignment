@@ -39,4 +39,5 @@ Route::get('/addBook', function () {
     return view('admin.addBook');
 })->name('admin.addBook');
 
+Route::get('/admin/deleteBook/{book_id}', [AdminBookManagingController::class, 'deleteBook'])->name('admin.deleteBook');
 
