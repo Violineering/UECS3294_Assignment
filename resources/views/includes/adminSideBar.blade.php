@@ -72,10 +72,9 @@
     <h2 class="logo">Unpopular.</h2>
     <hr>
     <ul>
-        <li><a href="#">Manage Books</a></li>
-        <li><a href="#">Manage Orders</a></li>
+        <li><a href="/admin/bookManaging">Manage Books</a></li>
         <li><a href="#">Manage Users</a></li>
-        <li><a href="#">Contact Messages</a></li>
+        <li><a href="/admin/contactForm">Contact Form</a></li>
         <li>
             <button type="submit" style="background: none; border: none; color: white; cursor: pointer;">Logout</button>
         </li>
