@@ -18,4 +18,12 @@ class ContactForm extends Model
         'reply',   
         'status',  
     ];
+
+    /**
+     * Get the user that submitted the contact form.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
