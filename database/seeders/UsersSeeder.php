@@ -15,14 +15,6 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Admin1',
-                'email' => 'admin@example.com',
-                'password' => Hash::make('password123'), // Securely hash the password
-                'is_admin' => 1, // Admin user
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'name' => 'John Doe',
                 'email' => 'john@example.com',
                 'password' => Hash::make('password123'),
@@ -35,6 +27,22 @@ class UsersSeeder extends Seeder
                 'email' => 'jane@example.com',
                 'password' => Hash::make('password123'),
                 'is_admin' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Sin Lei',
+                'email' => 'sinlei@example.com',
+                'password' => Hash::make('password123'),
+                'is_admin' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Admin1',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('password123'), // Securely hash the password
+                'is_admin' => 1, // Admin user
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
