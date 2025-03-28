@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users'; // Define the table name explicitly
+    protected $primaryKey = 'id'; // Define the primary key
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'profile_image',
     ];
 
     /**
@@ -40,5 +45,22 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
+
+    /**
+     * A user can have multiple purchased books.
+     */
+    public function purchasedBooks()
+    {
+        return $this->hasMany(PurchasedBook::class, 'user_id');
+    }
+
+    /**
+     * A user can have multiple contact form submissions.
+     */
+    public function contactForms()
+    {
+        return $this->hasMany(ContactForm::class, 'user_id');
+    }
 }
