@@ -6,6 +6,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Models\Book;
 use App\Http\Controllers\AdminBookManagingController;
 use App\Http\Controllers\AdminContactFormController;
+use App\Http\Controllers\AdminManageUsersController;
 
 
 /*
@@ -43,3 +44,5 @@ Route::get('/addBook', function () {
 Route::get('/admin/deleteBook/{id}', [AdminBookManagingController::class, 'deleteBook'])->name('admin.deleteBook');
 
 Route::get('/admin/contactForm', [AdminContactFormController::class, 'showContactForm'])->name('contactForm');
+
+Route::get('/admin/manageUsers', [AdminManageUsersController::class, 'showUsers']);
