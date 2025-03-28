@@ -18,7 +18,7 @@ class AdminBookManagingController extends Controller
     }
 
     public function updateBook(Request $req){
-        $book = Book::find($req->book_id);
+        $book = Book::find($req->id);
         
         if (!$book) {
             return redirect()->back()->with('error', 'Book not found.');
@@ -62,8 +62,8 @@ class AdminBookManagingController extends Controller
         return redirect()->route('admin.bookManaging')->with('success', 'Book updated successfully.');
     }
 
-    function showUpdate($book_id){
-        $book = Book::find($book_id);
+    function showUpdate($id){
+        $book = Book::find($id);
         return view("admin.updateBook", ['book' => $book]);
     }
 
@@ -99,9 +99,9 @@ class AdminBookManagingController extends Controller
         return redirect()->route('admin.bookManaging')->with('success', 'Book added successfully!');
     }
 
-    public function deleteBook($book_id)
+    public function deleteBook($id)
 {
-    $book = Book::find($book_id);
+    $book = Book::find($id);
 
     if (!$book) {
         return redirect()->route('admin.bookManaging')->with('error', 'Book not found.');

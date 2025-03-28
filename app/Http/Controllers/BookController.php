@@ -18,9 +18,9 @@ class BookController extends Controller
 
     
     // Method to display the book introduction page
-    public function showBook($book_id)
+    public function showBook($id)
     {
-        $book = Book::findOrFail($book_id); // Fetch the book by ID
+        $book = Book::findOrFail($id); // Fetch the book by ID
         return view('book.introduction_book', compact('book'));
     }
 }

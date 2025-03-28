@@ -28,7 +28,7 @@ Route::get('/book/booklist', function () {
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
 
 
-Route::get('/book/{book_id}', [BookController::class, 'showBook'])->name('book.introduction_book');
+Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book');
 
 Route::get('/admin/bookManaging', [AdminBookManagingController::class, 'listAllBook'])->name('admin.bookManaging');
 
@@ -40,6 +40,6 @@ Route::get('/addBook', function () {
     return view('admin.addBook');
 })->name('admin.addBook');
 
-Route::get('/admin/deleteBook/{book_id}', [AdminBookManagingController::class, 'deleteBook'])->name('admin.deleteBook');
+Route::get('/admin/deleteBook/{id}', [AdminBookManagingController::class, 'deleteBook'])->name('admin.deleteBook');
 
 Route::get('/admin/contactForm', [AdminContactFormController::class, 'showContactForm'])->name('contactForm');

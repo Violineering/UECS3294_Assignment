@@ -195,7 +195,7 @@
         <form action="updateBook" method="POST" enctype="multipart/form-data">
             @csrf
 			
-		<input type = "hidden" name = "book_id" value="{{ $book['book_id'] }}" >
+		<input type = "hidden" name = "id" value="{{ $book['id'] }}" >
 
             <div class="form-wrapper-upper">
                 <div class="form-left">

@@ -11,7 +11,7 @@ class CreateTblBooksTable extends Migration
     public function up(): void
     {
         Schema::create('tbl_books', function (Blueprint $table) {
-            $table->id('book_id'); // Auto-incrementing primary key
+            $table->id('id'); // Auto-incrementing primary key
             $table->string('title', 255)->nullable(false); // Title of the book
             $table->string('author', 255)->nullable(false); // Author of the book
             $table->string('isbn', 13)->unique()->nullable(false); // ISBN (unique)

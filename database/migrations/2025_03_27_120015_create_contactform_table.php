@@ -20,6 +20,8 @@ class CreateContactformTable extends Migration
             $table->text('reply')->nullable(); 
             $table->enum('status', ['pending', 'resolved', 'in-progress'])->default('pending'); // Tracks status
             $table->timestamps(); 
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
