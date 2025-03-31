@@ -1,0 +1,227 @@
+@import url('https://rsms.me/inter/inter-ui.css');
+::selection {
+    background: #8a6d4b;
+    color: white;
+}
+
+::-webkit-selection {
+    background: #8a6d4b;
+    color: white;
+}
+
+::-moz-selection {
+    background: #8a6d4b;
+    color: white;
+}
+
+body {
+    background: #e2e2e5;
+    font-family: 'Inter UI', sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #5a4a3a;
+}
+
+.page {
+    background: #e2e2e5;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 40px);
+    position: absolute;
+    place-content: center;
+    width: calc(100% - 40px);
+}
+
+@media (max-width: 767px) {
+    .page {
+        height: auto;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.container {
+    display: flex;
+    height: 320px;
+    margin: 0 auto;
+    width: 640px;
+}
+
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+        height: 630px;
+        width: 320px;
+    }
+}
+
+.left {
+    background: #fff9f2;
+    height: calc(100% - 40px);
+    top: 20px;
+    position: relative;
+    width: 50%;
+    border-radius: 8px 0 0 8px;
+    box-shadow: inset 0 0 10px rgba(138, 109, 75, 0.05);
+}
+
+@media (max-width: 767px) {
+    .left {
+        height: 100%;
+        left: 20px;
+        width: calc(100% - 40px);
+        max-height: 270px;
+        border-radius: 8px 8px 0 0;
+    }
+}
+
+.login {
+    font-size: 25px;
+    font-weight: 900;
+    margin: 50px 40px 40px;
+    color: #5a4a3a;
+    font-family: Arial, sans-serif;
+}
+
+.eula {
+    color: #a08c7a;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 40px;
+}
+
+.right {
+    background: #f0e6d9;
+    box-shadow: 
+        inset 0 0 15px rgba(138, 109, 75, 0.1),
+        0 0 0 1px rgba(138, 109, 75, 0.1);
+    color: #5a4a3a;
+    position: relative;
+    width: 50%;
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid #e0d5c8;
+}
+
+@media (max-width: 767px) {
+    .right {
+        flex-shrink: 0;
+        height: 100%;
+        width: 100%;
+        max-height: 350px;
+        border-radius: 0 0 8px 8px;
+        border-left: none;
+        border-top: 1px solid #e0d5c8;
+    }
+}
+
+svg {
+    position: absolute;
+    width: 320px;
+}
+
+path {
+    fill: none;
+    stroke: url(#linearGradient);
+    stroke-width: 4;
+    stroke-dasharray: 240 1386;
+}
+
+.linearGradient stop:nth-child(1) {
+    stop-color: #b8a28b;
+}
+
+.linearGradient stop:nth-child(2) {
+    stop-color: #d4c4b2;
+}
+
+.form {
+    margin: 40px;
+    position: absolute;
+}
+
+label {
+    color: #8a6d4b;
+    display: block;
+    font-size: 14px;
+    height: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    color: #5a4a3a;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    outline: none !important;
+    width: 100%;
+    border-bottom: 1px solid #c9b8a5;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-bottom-color: #8a6d4b;
+}
+
+input::-moz-focus-inner { 
+    border: 0; 
+}
+
+#submit {
+    color: #5a4a3a;
+    margin-top: 40px;
+    margin-left: 80px;
+    transition: all 0.3s ease;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    /* Text styling */
+    text-align: left;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    /* Remove all borders and background */
+    background: transparent;
+    border: none;
+    /* Positioning */
+    position: relative;
+    z-index: 1;
+    /* Box model */
+    box-sizing: border-box;
+}
+
+
+#submit:focus {
+    outline: none;
+    color: #f2f2f2;
+}
+
+#submit:active {
+    color: #d0d0d2;
+    transform: translateY(1px);
+}
+
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(138, 109, 75, 0.1);
+}
+
+.alert-danger {
+    color: #8a4b4b;
+    background-color: rgba(138, 75, 75, 0.1);
+    border-color: rgba(138, 75, 75, 0.2);
+}
+
+.alert-success {
+    color: #4b8a5e;
+    background-color: rgba(75, 138, 92, 0.1);
+    border-color: rgba(75, 138, 92, 0.2);
+}

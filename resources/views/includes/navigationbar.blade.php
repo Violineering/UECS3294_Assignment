@@ -1,87 +1,93 @@
 <style>
-    header {
-        background-color: #fff;
+    /* Navigation Bar Specific Styles - Scoped to header only */
+    header.navigation-header {
+        background-color: #ffffff;
         padding: 20px;
         display: flex;
         justify-content: center;
         box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    nav {
+    header.navigation-header nav {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 80%;
     }
 
-    .logo {
+    header.navigation-header .logo {
         font-size: 24px;
         font-weight: bold;
         transition: transform 0.3s ease;
     }
 
-    .logo:hover {
+    header.navigation-header .logo:hover {
         transform: scale(1.05);
     }
 
-    .nav-links {
+    header.navigation-header .nav-links {
         list-style: none;
         display: flex;
         gap: 20px;
+        margin: 0;
+        padding: 0;
     }
 
-    .nav-links li a {
+    header.navigation-header .nav-links li a {
         text-decoration: none;
         color: #1d1d1f;
         font-weight: 500;
         transition: color 0.3s ease;
+        padding: 15px;
     }
 
-    .nav-links li a:hover {
+    header.navigation-header .nav-links li a:hover {
         color: #007AFF;
     }
 
-    /* Search Bar Styling */
-    .search-container {
+    /* Search Bar Styling - Scoped to navigation only */
+    header.navigation-header .search-container {
         display: flex;
         align-items: center;
         background: #f5f5f5;
         border-radius: 10px;
         padding: 5px 10px;
-        width: 300px; 
+        width: 300px;
         border: 2px solid transparent;
         transition: 0.3s ease-in-out;
         margin-left: auto;
+        position: relative; /* Added for positioning */
     }
 
-    .search-container:focus-within {
+    header.navigation-header .search-container:focus-within {
         border-color: rgb(170,170,170);
     }
 
-    .search-container input {
+    header.navigation-header .search-container input {
         border: none;
         outline: none;
         background: transparent;
         flex: 1;
         padding: 10px;
         font-size: 16px;
+        width: calc(100% - 30px); /* Make space for icon */
     }
 
-    .search-container .searchButton {
-        padding: 10px 15px;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
+    header.navigation-header .search-container .searchButton {
+        position: absolute;
+        right: 10px;
         width: 20px;
         height: 20px;
-        filter: brightness(1);
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
     }
 
-    .search-container .searchButton:hover {
+    header.navigation-header .search-container .searchButton:hover {
         filter: brightness(2); 
         transform: scale(1.2); 
     }
 
-    .logo-link{
+    header.navigation-header .logo-link {
         text-decoration: none;
         color: black;
         font-style: oblique;
@@ -91,34 +97,54 @@
         margin-left: 40px;
     }
 
-    .create-account{
-        background-color: transparent;
-        border-radius: 10px;
-        padding: 15px 10px;
-        border: 2px solid black;
-        margin-left: 10px;
-        font-size: 16px;
-        margin-right: -60px;
+    header.navigation-header .profile-icon-container {
+        position: relative;
+        margin-left: 20px;
+    }
+    
+    header.navigation-header .profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: transform 0.3s ease;
+        object-fit: cover;
+        border: 2px solid transparent;
+    }
+    
+    header.navigation-header .profile-icon:hover {
+        transform: scale(1.1);
+        border-color: #007AFF;
+    }
+    
+    header.navigation-header .profile-tooltip {
+        position: absolute;
+        right: 0;
+        top: 50px;
+        background: white;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        display: none;
+        z-index: 100;
+        min-width: 150px;
+    }
+    
+    header.navigation-header .profile-icon-container:hover .profile-tooltip {
+        display: block;
     }
 
-    .create-account:hover {
-        background-color: #1d1d1f;
-        color: white;
+    /* Protection against other pages' styles */
+    header.navigation-header * {
+        box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
-
-    li a{
-        padding: 15px;
-    }
-
 </style>
 
-<header>
+<header class="navigation-header">
     <nav>
         <div class="logo">
-            <a href="{{ url('/') }}" class="logo-link">Unpopular.</a> <!-- Link to home page -->
+            <a href="{{ url('/') }}" class="logo-link">Unpopular.</a>
         </div>
         <ul class="nav-links">
             <li><a href="#">Contact Us</a></li>
@@ -128,8 +154,37 @@
         </ul>
         <div class="search-container">
             <input type="text" placeholder="Search books here...">
-            <img class = "searchButton" src="{{ asset('icon/search.png') }}">
+            <img class="searchButton" src="{{ asset('icon/search.png') }}" alt="Search">
         </div>
-        <button class="create-account">Create Account</button>
+        
+        <div class="profile-icon-container">
+            @auth
+                <a href="{{ route('auth.profile') }}">
+                    @if(Auth::user()->profile_image)
+                        <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" 
+                             class="profile-icon" 
+                             alt="Profile Picture">
+                    @else
+                        <img src="{{ asset('storage/profile_pic/default_profile_pic.jpg') }}" 
+                             class="profile-icon" 
+                             alt="Default Profile">
+                    @endif
+                </a>
+                <div class="profile-tooltip">
+                    <p class="mb-2">{{ Auth::user()->name }}</p>
+                    <a href="{{ route('auth.profile') }}" class="d-block">Profile</a>
+                    <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+                    </form>
+                </div>
+            @else
+                <a href="{{ route('login') }}">
+                    <img src="{{ asset('storage/profile_pic/default_profile_pic.jpg') }}" 
+                         class="profile-icon" 
+                         alt="Login">
+                </a>
+            @endauth
+        </div>
     </nav>
 </header>
