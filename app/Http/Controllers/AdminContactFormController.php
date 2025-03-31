@@ -9,7 +9,7 @@ class AdminContactFormController extends Controller
 {
     public function showContactForm()
     {
-        $ContactForms = ContactForm::paginate(8);
+        $ContactForms = ContactForm::with('user')->paginate(8);
         return view('admin.contactForm', ['ContactForms' => $ContactForms]);
     }
 

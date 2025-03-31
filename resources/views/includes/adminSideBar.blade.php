@@ -73,7 +73,7 @@
     <hr>
     <ul>
         <li><a href="/admin/bookManaging">Manage Books</a></li>
-        <li><a href="#">Manage Users</a></li>
+        <li><a href="/admin/manageUsers">Manage Users</a></li>
         <li><a href="/admin/contactForm">Contact Form</a></li>
         <li>
             <button type="submit" style="background: none; border: none; color: white; cursor: pointer;">Logout</button>

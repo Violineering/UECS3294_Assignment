@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminContactFormController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ProfileController;
+use App\Http\Controllers\AdminManageUsersController;
 
 // Public Routes
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
@@ -56,3 +57,6 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('auth.profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
+Route::get('/admin/contactForm', [AdminContactFormController::class, 'showContactForm'])->name('contactForm');
+
+Route::get('/admin/manageUsers', [AdminManageUsersController::class, 'showUsers']);
