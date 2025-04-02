@@ -150,7 +150,7 @@
             <li><a href="#">Contact Us</a></li>
             <li><a href="#">Categories</a></li>
             <li><a href="/book/booklist">Books</a></li>
-            <li><a href="#">My Books</a></li>
+            <li><a href="/purchased_books">My Books</a></li>
         </ul>
         <div class="search-container">
             <input type="text" placeholder="Search books here...">
