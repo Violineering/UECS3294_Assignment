@@ -97,7 +97,7 @@
         }
 
         .download-btn {
-            background-color: #007bff;
+            background-color: #1d1d1f;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -132,7 +132,7 @@
         @else
         @foreach($purchasedBooks as $purchasedBook)
             <div class="book-card">
-                <img src="{{ asset('storage/images/book_cover' . $purchasedBook->book->cover_image) }}" alt="{{ $purchasedBook->book->title }}">
+                <img src="{{ asset('storage/' . $purchasedBook->book->cover_image) }}" alt="{{ $purchasedBook->book->title }}">
                 <h2>{{ $purchasedBook->book->title }}</h2>
                 <p>Purchased on: {{ $purchasedBook->purchased_datetime }}</p>
 
