@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\AdminManageUsersController;
+use App\Http\Controllers\CartController;
 
 // Public Routes
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
@@ -47,6 +48,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/welcome', [WelcomeController::class, 'welcome'])
         ->name('welcome');
+    Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 });
 
 // Signup Routes

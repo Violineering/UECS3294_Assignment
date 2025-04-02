@@ -135,6 +135,40 @@
             <p class="availability">
                 <strong>Availability:</strong> {{ ucfirst($book->availability) }}
             </p>
+            <button onclick="addToCart({{ $book->id }})" class="add-to-cart-btn">
+                Add to Cart
+            </button>
+            
+            <script>
+                function addToCart(bookId) {
+                    @if(auth()->check())
+                        fetch("{{ route('cart.add') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({ book_id: bookId })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                            if (data.success) {
+                                // Redirects to the cart page
+                                window.location.href = "{{ route('cart') }}";
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                            alert("An error occurred. Please try again.");
+                        });
+                    @else
+                        // Redirect to login if user is not authenticated
+                        window.location.href = "{{ route('login') }}";
+                    @endif
+                }
+            </script>
+                   
         </div>
     </section>
 

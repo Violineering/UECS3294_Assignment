@@ -151,6 +151,11 @@
             <li><a href="#">Categories</a></li>
             <li><a href="/book/booklist">Books</a></li>
             <li><a href="/purchased_books">My Books</a></li>
+            <li>
+                <a href="/cart">
+                    <img src="{{ asset('icon/cart.png') }}" alt="Shopping Cart" style="width: 24px; height: 24px;">
+                </a>
+            </li>
         </ul>
         <div class="search-container">
             <input type="text" placeholder="Search books here...">
