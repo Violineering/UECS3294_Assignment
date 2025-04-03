@@ -152,8 +152,23 @@
             <li><a href="/book/booklist">Books</a></li>
             <li><a href="/purchased_books">My Books</a></li>
             <li>
-                <a href="/cart">
+                <a href="/cart" style="position: relative;">
                     <img src="{{ asset('icon/cart.png') }}" alt="Shopping Cart" style="width: 24px; height: 24px;">
+                    @if(session('cart_count', 0) > 0)
+                        <span style="
+                            position: absolute;
+                            top: -5px;
+                            right: -10px;
+                            background-color: red;
+                            color: white;
+                            font-size: 12px;
+                            font-weight: bold;
+                            border-radius: 50%;
+                            padding: 2px 6px;
+                        ">
+                            {{ session('cart_count') }}
+                        </span>
+                    @endif
                 </a>
             </li>
         </ul>

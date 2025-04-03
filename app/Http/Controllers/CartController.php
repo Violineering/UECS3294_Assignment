@@ -21,7 +21,11 @@ class CartController extends Controller
                     ->select('shopping_cart.id', 'tbl_books.title', "tbl_books.cover_image") // Adjust fields as needed
                     ->get();
 
-        return view('user.cart', compact('cartItems')); 
+        // Update the cart count in the session
+        $cartCount = $cartItems->count();
+        session(['cart_count' => $cartCount]);
+    
+        return view('user.cart', compact('cartItems'));
     }
 
     public function addToCart(Request $request)
@@ -49,32 +53,62 @@ class CartController extends Controller
             return response()->json(['success' => false, 'message' => 'This e-book is already in your cart.']);
         }
 
-        // Add new book to the cart
+        // Add new book to the cart in the database
         $cartItem = new ShoppingCart();
         $cartItem->user_id = $userId;
         $cartItem->book_id = $bookId;
         $cartItem->save();
 
+        // Update the cart count in the session
+        $cartCount = ShoppingCart::where('user_id', $userId)->count();
+        session(['cart_count' => $cartCount]);
+
         return response()->json(['success' => true, 'message' => 'E-book added to cart successfully!']);
     }
 
     public function removeFromCart($id)
-{
-    // Ensure user is authenticated
-    if (!Auth::check()) {
-        return redirect()->route('login');
+    {
+        // Ensure user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        // Find the cart item by its ID and delete it
+        $cartItem = ShoppingCart::where('id', $id)
+                                ->where('user_id', Auth::id())
+                                ->first();
+
+        if ($cartItem) {
+            $cartItem->delete();
+
+            // Update the cart count in the session
+            $cartCount = ShoppingCart::where('user_id', Auth::id())->count();
+            session(['cart_count' => $cartCount]);
+
+            return redirect()->route('cart')->with('success', 'Book removed from cart!');
+        }
+
+        return redirect()->route('cart')->with('error', 'Cart item not found.');
     }
 
-    // Find the cart item by its ID and delete it
-    $cartItem = ShoppingCart::where('id', $id)
-                            ->where('user_id', Auth::id())
-                            ->first();
+    public function checkout(Request $request)
+    {
+        // Ensure user is authenticated
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
-    if ($cartItem) {
-        $cartItem->delete();
-        return redirect()->route('cart')->with('success', 'Book removed from cart!');
+        // Validate that selected_items is an array
+        $request->validate([
+            'selected_items' => 'required|array',
+        ]);
+
+        // Retrieve the selected items' data from the request
+        $selectedItems = collect($request->input('selected_items'))->map(function ($id) use ($request) {
+            return $request->input("cart_data.$id");
+        });
+
+        // Pass the selected items to the checkout view
+        return view('user.checkout', compact('selectedItems'));
     }
-
-    return redirect()->route('cart')->with('error', 'Cart item not found.');
-}
 }
