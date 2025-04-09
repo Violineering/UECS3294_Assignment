@@ -26,6 +26,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 50,
                 'pdf_file' => 'pdfs/great_gatsby.pdf',
+                'price' => 14.99,
             ],
             [
                 'title' => 'To Kill a Mockingbird',
@@ -41,6 +42,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 30,
                 'pdf_file' => 'pdfs/mockingbird.pdf',
+                'price' => 24.99,
             ],
             [
                 'title' => '1984',
@@ -56,6 +58,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'out of stock',
                 'stock' => 0,
                 'pdf_file' => 'pdfs/1984.pdf',
+                'price' => 34.99,
             ],
             [
                 'title' => 'Pride and Prejudice',
@@ -71,6 +74,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 25,
                 'pdf_file' => 'pdfs/pride_prejudice.pdf',
+                'price' => 14.88,
             ],
             [
                 'title' => 'The Catcher in the Rye',
@@ -86,6 +90,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 40,
                 'pdf_file' => 'pdfs/catcher_rye.pdf',
+                'price' => 24.88,
             ],
             [
                 'title' => 'The Hobbit',
@@ -101,6 +106,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 60,
                 'pdf_file' => 'pdfs/hobbit.pdf',
+                'price' => 34.88,
             ],
             [
                 'title' => 'The Alchemist',
@@ -116,6 +122,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 35,
                 'pdf_file' => 'pdfs/alchemist.pdf',
+                'price' => 14.77,
             ],
             [
                 'title' => 'The Lord of the Rings',
@@ -131,6 +138,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 20,
                 'pdf_file' => 'pdfs/lotr.pdf',
+                'price' => 24.77,
             ],
             [
                 'title' => 'Harry Potter and the Sorcerer\'s Stone',
@@ -146,6 +154,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 100,
                 'pdf_file' => 'pdfs/hp_sorcerers_stone.pdf',
+                'price' => 34.77,
             ],
             [
                 'title' => 'The Da Vinci Code',
@@ -161,6 +170,7 @@ class BooksTableSeeder extends Seeder
                 'availability' => 'available',
                 'stock' => 45,
                 'pdf_file' => 'pdfs/da_vinci_code.pdf',
+                'price' => 55.55,
             ],
         ]);
     }

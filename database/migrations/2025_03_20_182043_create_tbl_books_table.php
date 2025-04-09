@@ -27,6 +27,7 @@ class CreateTblBooksTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); // Timestamp when the book was last updated
             $table->integer('stock')->nullable(); // Stock of the book
             $table->string('pdf_file', 255)->nullable(); // URL to the ebook PDF file
+            $table->decimal('price', 8, 2); // Price of the book 
         });
     }
 

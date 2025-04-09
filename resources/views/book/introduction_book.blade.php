@@ -132,6 +132,7 @@
             <p><strong>Language:</strong> {{ $book->language }}</p>
             <p><strong>Pages:</strong> {{ $book->pages }}</p>
             <p><strong>Description:</strong> {{ $book->description }}</p>
+            <p><strong>Price:</strong> RM{{ $book->price }}</p>
             <p class="availability">
                 <strong>Availability:</strong> {{ ucfirst($book->availability) }}
             </p>

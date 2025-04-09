@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ShoppingCart; // Ensure you import the model
 use App\Models\TblBooks; // Import the book model to fetch book details
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
@@ -18,7 +19,7 @@ class CartController extends Controller
         // Fetch cart items from the database instead of session
         $cartItems = ShoppingCart::where('user_id', Auth::id())
                     ->join('tbl_books', 'shopping_cart.book_id', '=', 'tbl_books.id')
-                    ->select('shopping_cart.id', 'tbl_books.title', "tbl_books.cover_image") // Adjust fields as needed
+                    ->select('shopping_cart.id', 'tbl_books.title', "tbl_books.cover_image", "price") // Adjust fields as needed
                     ->get();
 
         // Update the cart count in the session
@@ -105,10 +106,36 @@ class CartController extends Controller
 
         // Retrieve the selected items' data from the request
         $selectedItems = collect($request->input('selected_items'))->map(function ($id) use ($request) {
-            return $request->input("cart_data.$id");
+            // Retrieve the complete data for each selected item using the id
+            return [
+                'price' => $request->input("cart_data.$id.price"),
+                'title' => $request->input("cart_data.$id.title"),
+                'cover_image' => $request->input("cart_data.$id.cover_image"),
+            ];
         });
 
         // Pass the selected items to the checkout view
         return view('user.checkout', compact('selectedItems'));
+    }
+
+    public function showPaymentForm()
+    {
+        // You don't need to pass the price again if you don't want it to show.
+        return view('user.payment');
+    }
+
+    public function processPayment(Request $request)
+    {
+        // Validate the credit card details
+        $validatedData = $request->validate([
+            'card_number' => 'required|string|size:16',
+            'expiry_date' => 'required|string|size:5',
+            'cvv' => 'required|string|size:3',
+            'cardholder_name' => 'required|string|max:255',
+        ]);
+    
+        // Simulate payment processing
+        // Redirect to success page
+        return view('user.payment-success');
     }
 }

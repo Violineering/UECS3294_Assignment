@@ -47,11 +47,12 @@
                         <div class="cart-item">
                             <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
                             <span>{{ $item->title }}</span><br>
-                        
+                            <span>{{ $item->price }}</span><br>
                             <!-- Display the book cover image -->
                             <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>
                         
                             <!-- Pass additional data as hidden inputs -->
+                            <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->price }}">
                             <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->title }}">
                             <input type="hidden" name="cart_data[{{ $item->id }}][cover_image]" value="{{ $item->cover_image }}">
 

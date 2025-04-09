@@ -57,43 +57,22 @@
         <!-- Left Section: List of Checkout Items -->
         <div class="checkout-left">
             @if($selectedItems->count() > 0)
-                <ul>
-                    @foreach($selectedItems as $item)
-                        <li>
-                            <div class="checkout-item">
-                                <span>{{ $item['title'] }}</span><br>
-                                <img src="{{ asset('storage/' . $item['cover_image']) }}" alt="Cover of {{ $item['title'] }}" style="width: 100px; height: auto;">
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
+                @foreach($selectedItems as $item)
+                    <div class="checkout-item" style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                        <h3>{{ $item['title'] }}</h3>
+                        <p>Price: RM{{ $item['price'] }}</p>
+                        <img src="{{ asset('storage/' . $item['cover_image']) }}" alt="Cover of {{ $item['title'] }}" style="width: 100px; height: auto;">
+                    </div>
+                @endforeach
+                <div class="total-price" style="margin-top: 20px;">
+                    <h3>Total Price: RM{{ $selectedItems->sum('price') }}</h3>
+                </div>
+                <div style="margin-top: 20px;">
+                    <a href="{{ route('cart.showPaymentForm') }}" style="display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Pay Now</a>
+                </div>
             @else
                 <p>No items selected for checkout.</p>
             @endif
-        </div>
-
-        <!-- Right Section: Payment Form -->
-        <div class="checkout-right">
-            <form>
-                @csrf
-                <div>
-                    <label for="card-number">Card Number:</label><br>
-                    <input type="text" id="card-number" name="card_number" required>
-                </div>
-                <div>
-                    <label for="expiry-date">Expiry Date:</label><br>
-                    <input type="text" id="expiry-date" name="expiry_date" placeholder="MM/YY" required>
-                </div>
-                <div>
-                    <label for="cvv">CVV:</label><br>
-                    <input type="text" id="cvv" name="cvv" required>
-                </div>
-                <div>
-                    <label for="name-on-card">Name on Card:</label><br>
-                    <input type="text" id="name-on-card" name="name_on_card" required>
-                </div>
-                <button type="submit">Pay Now</button>
-            </form>
         </div>
     </div>
 
