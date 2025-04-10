@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ShoppingCart; // Ensure you import the model
 use App\Models\TblBooks; // Import the book model to fetch book details
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB; 
 
 class CartController extends Controller
 {
@@ -44,6 +45,16 @@ class CartController extends Controller
             'book_id' => 'required|exists:tbl_books,id', // Ensure book exists in tbl_books
         ]);
 
+        // Check if the user already purchased the book
+        $purchasedBook = DB::table('purchased_books')
+                            ->where('user_id', $userId)
+                            ->where('book_id', $bookId)
+                            ->first();
+        
+        if ($purchasedBook) {
+            return response()->json(['success' => false, 'message' => 'You already purchased this e-book.']);
+        }
+              
         // Check if the book is already in the user's cart
         $cartItem = ShoppingCart::where('user_id', $userId)
                                 ->where('book_id', $bookId)
@@ -104,38 +115,80 @@ class CartController extends Controller
             'selected_items' => 'required|array',
         ]);
 
-        // Retrieve the selected items' data from the request
-        $selectedItems = collect($request->input('selected_items'))->map(function ($id) use ($request) {
-            // Retrieve the complete data for each selected item using the id
+        // Get the selected items from the request
+        $selectedItems = $request->input('selected_items');
+
+        // Get existing items in the session
+        $existingCheckoutItems = session('checkout_items', collect());
+
+        // Remove any items from the session that are unchecked
+        $existingCheckoutItems = $existingCheckoutItems->filter(function ($item) use ($selectedItems) {
+            return in_array($item['title'], $selectedItems);  // Keep only items that are checked
+        });
+
+        // Map through the selected items and push them to the session
+        $checkoutItems = collect($selectedItems)->map(function ($id) use ($request) {
             return [
-                'price' => $request->input("cart_data.$id.price"),
                 'title' => $request->input("cart_data.$id.title"),
+                'price' => $request->input("cart_data.$id.price"),
                 'cover_image' => $request->input("cart_data.$id.cover_image"),
             ];
         });
 
-        // Pass the selected items to the checkout view
-        return view('user.checkout', compact('selectedItems'));
-    }
+        // Merge the new items into the existing session data, ensuring no duplicates
+        $existingCheckoutItems = $existingCheckoutItems->merge($checkoutItems);
 
-    public function showPaymentForm()
-    {
-        // You don't need to pass the price again if you don't want it to show.
-        return view('user.payment');
+        // Store the updated items back in the session
+        session(['checkout_items' => $existingCheckoutItems]);
+
+        return view('user.checkout');
     }
 
     public function processPayment(Request $request)
     {
-        // Validate the credit card details
+        // Validate credit card input
         $validatedData = $request->validate([
             'card_number' => 'required|string|size:16',
             'expiry_date' => 'required|string|size:5',
             'cvv' => 'required|string|size:3',
-            'cardholder_name' => 'required|string|max:255',
+            'cardholder_name' => 'required|string|max:50',
         ]);
-    
-        // Simulate payment processing
-        // Redirect to success page
+
+        // Get the checkout items from session
+        $checkoutItems = session('checkout_items');
+
+        if (!$checkoutItems || $checkoutItems->isEmpty()) {
+            return redirect()->route('cart')->with('error', 'No items in checkout.');
+        }
+
+        // 3. Insert each purchased item into purchased_books table and delete from shopping_cart table
+        foreach ($checkoutItems as $item) {
+            // Get the book record by title (or better: use book_id if available)
+            $book = DB::table('tbl_books')->where('title', $item['title'])->first();
+
+            if ($book) {
+                // Insert into purchased_books table
+                DB::table('purchased_books')->insert([
+                    'user_id' => Auth::id(),
+                    'book_id' => $book->id,
+                    'title' => $book->title,
+                    'cover_image' => $book->cover_image,
+                    'pdf_file' => $book->pdf_file,
+                    'purchased_datetime' => now()
+                ]);
+
+                // Delete from shopping_cart table
+                DB::table('shopping_cart')
+                    ->where('user_id', Auth::id())
+                    ->where('book_id', $book->id)  // Use the book_id from the book record
+                    ->delete();
+            }
+        }
+
+        // 4. Clear checkout session
+        session()->forget('checkout_items');
+
+        // 5. Redirect to payment success page
         return view('user.payment-success');
     }
 }

@@ -36,21 +36,30 @@
 
 <body>
     @include('includes.navigationbar') <!-- Include the navigation bar -->
-    <form action="{{ route('cart.checkout') }}" method="POST">
+
+    <form action="{{ route('cart.checkout') }}" method="GET">
         @csrf
-        <h1> Shopping Cart</h1>
+        <h1>Shopping Cart</h1>
         <div class="cart-container">
             @if($cartItems->count() > 0)
             <ul>
+                @php
+                    // Retrieve selected items from session
+                    $selectedItemIds = session('checkout_items', collect());
+                    // Pluck the titles from the selected items in the session
+                    $selectedItemTitles = $selectedItemIds->pluck('title')->toArray();
+                @endphp
                 @foreach($cartItems as $item)
                     <li>
                         <div class="cart-item">
-                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
+                           <!-- Check if the item title is in the session selected items -->
+                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" 
+                                {{ in_array($item->title, $selectedItemTitles) ? 'checked' : '' }}>
+                            
                             <span>{{ $item->title }}</span><br>
                             <span>{{ $item->price }}</span><br>
-                            <!-- Display the book cover image -->
-                            <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>
-                        
+                            <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>  
+          
                             <!-- Pass additional data as hidden inputs -->
                             <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->price }}">
                             <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->title }}">

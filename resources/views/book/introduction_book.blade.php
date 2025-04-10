@@ -136,7 +136,7 @@
             <p class="availability">
                 <strong>Availability:</strong> {{ ucfirst($book->availability) }}
             </p>
-            <button onclick="addToCart({{ $book->id }})" class="add-to-cart-btn">
+            <button onclick="addToCart({{ $book->id }})" class="add-to-cart-btn" {{ $book->availability === 'out of stock' ? 'disabled' : '' }}>
                 Add to Cart
             </button>
             

@@ -25,7 +25,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-great-gatsby.jpg',
                 'availability' => 'available',
                 'stock' => 50,
-                'pdf_file' => 'pdfs/great_gatsby.pdf',
+                'pdf_file' => 'pdfs/the-great-gatsby.pdf',
                 'price' => 14.99,
             ],
             [
@@ -41,7 +41,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/to-kill-a-mocking-bird.jpg',
                 'availability' => 'available',
                 'stock' => 30,
-                'pdf_file' => 'pdfs/mockingbird.pdf',
+                'pdf_file' => 'pdfs/to-kill-a-mocking-bird.pdf',
                 'price' => 24.99,
             ],
             [
@@ -73,7 +73,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/pride-and-prejudice.jpg',
                 'availability' => 'available',
                 'stock' => 25,
-                'pdf_file' => 'pdfs/pride_prejudice.pdf',
+                'pdf_file' => 'pdfs/pride-and-prejudice.pdf',
                 'price' => 14.88,
             ],
             [
@@ -89,7 +89,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-catcher-in-the-rye.png',
                 'availability' => 'available',
                 'stock' => 40,
-                'pdf_file' => 'pdfs/catcher_rye.pdf',
+                'pdf_file' => 'pdfs/the-catcher-in-the-rye.pdf',
                 'price' => 24.88,
             ],
             [
@@ -105,7 +105,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-hobbit.jpg',
                 'availability' => 'available',
                 'stock' => 60,
-                'pdf_file' => 'pdfs/hobbit.pdf',
+                'pdf_file' => 'pdfs/the-hobbit.pdf',
                 'price' => 34.88,
             ],
             [
@@ -121,7 +121,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-alcehemist.jpg',
                 'availability' => 'available',
                 'stock' => 35,
-                'pdf_file' => 'pdfs/alchemist.pdf',
+                'pdf_file' => 'pdfs/the-alcehemist.pdf',
                 'price' => 14.77,
             ],
             [
@@ -137,7 +137,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-lord-of-the-rings.jpg',
                 'availability' => 'available',
                 'stock' => 20,
-                'pdf_file' => 'pdfs/lotr.pdf',
+                'pdf_file' => 'pdfs/the-lord-of-the-rings.pdf',
                 'price' => 24.77,
             ],
             [
@@ -153,7 +153,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/harry-potter-and-the-socerers-stone.jpg',
                 'availability' => 'available',
                 'stock' => 100,
-                'pdf_file' => 'pdfs/hp_sorcerers_stone.pdf',
+                'pdf_file' => 'pdfs/harry-potter-and-the-socerers-stone.pdf',
                 'price' => 34.77,
             ],
             [
@@ -169,7 +169,7 @@ class BooksTableSeeder extends Seeder
                 'cover_image' => 'images/book_cover/the-davincci-code.jpg',
                 'availability' => 'available',
                 'stock' => 45,
-                'pdf_file' => 'pdfs/da_vinci_code.pdf',
+                'pdf_file' => 'pdfs/the-davincci-code.pdf',
                 'price' => 55.55,
             ],
         ]);
