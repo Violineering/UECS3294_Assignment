@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Managing</title>
+    <title>Manage Users</title>
     <style>
-
-        body{
-            background-color: #f5f0eb;
+        .userslist {
+            margin-left: 300px; /* Default when sidebar is open */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .title{
-            display: flex;
-            align-items: justify; 
-            justify-content: space-between; 
-        }
-
-        .addNewBtn{
-            background-color:rgb(219, 219, 219);
-            border: none;
-            height: 40px;
-            line-height: normal; 
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 18px;
+        /* When Sidebar is Collapsed */
+        .sidebar.collapsed ~ .userslist {
+            margin-left: 90px; 
+            width: calc(100% - 90px); /* Expand content width */
         }
 
         .table-container {
@@ -39,15 +31,6 @@
             min-width: 100%;
             table-layout: fixed;
             border-collapse: collapse;
-        }
-
-        td:nth-child(5), /* Publication Year */
-        td:nth-child(6), /* Genre */
-        td:nth-child(7), /* Language */
-        td:nth-child(8),  /* Pages */ 
-        td:nth-child(9),  /* Availability */ 
-        td:nth-child(11)  /* Cover img */ {
-            text-align: center;
         }
 
         th, td {
@@ -88,6 +71,12 @@
         td {
             padding: 10px;
             text-align: left;
+        }
+
+        td:nth-child(1), 
+        td:nth-child(2), 
+        td:nth-child(5) {
+            text-align: center;
         }
 
         /* Dropdown Container */
@@ -165,78 +154,51 @@
             background-color:rgb(163, 163, 163);
             font-weight: bold;
         }
-
-        .booklist {
-            margin-left: 300px; /* Default when sidebar is open */
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* When Sidebar is Collapsed */
-        .sidebar.collapsed ~ .booklist {
-            margin-left: 90px; 
-            width: calc(100% - 90px); /* Expand content width */
-        }
     </style>
+
 </head>
 <body>
 
-    <!-- Include Sidebar -->
-    @include('includes.adminSideBar')
+@include('includes.adminSideBar')
 
-    <!-- Main Content -->
-    <div class="booklist">
+<div class="userslist">
         <div class= "title">
-            <h1>BookList</h1>
-            <button class="addNewBtn"><a href="{{ route('admin.addBook') }}" style="text-decoration: none; color: black;">+ New</a></button>
+            <h1>Manage Admin</h1>
         </div>
         <div class="table-container">
             <table border="1">
                 <thead>
                     <tr>
-                        <th>Action</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Publisher</th>
-                        <th>Publication Year</th>
-                        <th>Genre</th>
-                        <th>Language</th>
-                        <th>Pages</th>
-                        <th>Availability</th>
-                        <th>Description</th>
-                        <th>Cover Image</th>
-                        <th>Content(pdf)</th>
+                        <th>Actions</th>
+                        <th>Admin ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Profile Image</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($books as $book)
+                    @foreach ($users as $user)
                     <tr>
                         <td>
                             <div class="dropdown">
                                 <button class="actionBtn" onclick="toggleDropdown(this)">Action ▼</button>
                                 <div class="dropdown-content">
-                                    <a href = {{"updateBook/".$book['id']}}>Update</a>
-                                    <a href="{{ route('admin.deleteBook', ['id' => $book->id]) }}" onclick="return confirm('Are you sure you want to delete this book?')">Delete</a>
+                                    <a href = #  onclick="openModal({{ $ContactForm->id }})">Update</a>
+                                    <a href =#>Delete</a>
                                 </div>
                             </div>
                         </td>
-                        <td>{{$book->title}}</td>
-                        <td>{{$book->author}}</td>
-                        <td>{{$book->publisher}}</td>
-                        <td>{{$book->publication_year}}</td>
-                        <td>{{$book->genre}}</td>
-                        <td>{{$book->language}}</td>
-                        <td>{{$book->pages}}</td>
-                        <td>{{$book->availability}}</td>
-                        <td>{{$book->description}}</td>
-                        <td><img src="{{ asset('storage/' . $book->cover_image) }}" height="150" alt="Book Cover"></td>
-                        <td>@if ($book->pdf_file)
-                                <a href="{{ asset('storage/' . $book->pdf_file) }}" download>Download Current PDF</a>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>
+                            @if ($user->profile_image)
+                                <img src="{{ asset('storage/' . $user->profile_image) }}" width="50" height="50" alt="Profile Image">
+                            @else
+                                <span>No Image</span>
                             @endif
                         </td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -244,11 +206,28 @@
         </div>
 
         <span>
-            {{$books->links('pagination::bootstrap-4')}}
+            {{$users->links('pagination::bootstrap-4')}}
         </span>
+</div>
+<div id="updateModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background-color: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:white; padding:20px; border-radius:8px; width:400px; max-width:90%;">
+        <h3>Update Contact Form</h3>
+        <form id="modalForm" method="POST">
+            @csrf
+            <textarea name="reply" id="modalReply" placeholder="Write a reply..." required style="width:100%; height:100px;"></textarea><br><br>
+            <select name="status" id="modalStatus" required style="width:100%;">
+                <option value="" disabled selected id="statusPlaceholder">Select status</option>
+                <option value="Pending">Pending</option>
+                <option value="In-progress">In-progress</option>
+                <option value="Resolved">Resolved</option>       
+            </select><br><br>
+            <button type="submit" class="actionBtn">Save</button>
+            <button type="button" class="actionBtn" style="background-color:gray;" onclick="closeModal()">Cancel</button>
+        </form>
     </div>
-
-    <script>
+</div>
+<script>
         function toggleDropdown(button) {
             var dropdownContent = button.nextElementSibling;
             
@@ -275,3 +254,4 @@
 
 </body>
 </html>
+

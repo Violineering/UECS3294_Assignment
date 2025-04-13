@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminContactFormController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ProfileController;
-use App\Http\Controllers\AdminManageUsersController;
+use App\Http\Controllers\AdminManageAdminController;
 use App\Http\Controllers\CartController;
 
 // Public Routes
@@ -75,7 +75,7 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
 
-Route::get('/admin/manageUsers', [AdminManageUsersController::class, 'showUsers']);
+Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 
 Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 
