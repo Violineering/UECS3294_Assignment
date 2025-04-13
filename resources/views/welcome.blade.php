@@ -253,6 +253,12 @@
 <body>
     @include('includes.navigationbar')
 
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <div class="main-canvas">
         <section class="hero">
             <h1>TO SUCCEED YOU MUST READ</h1>

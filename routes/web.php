@@ -33,15 +33,18 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('admin.showUpdate');
     Route::post('/updateBook/{id}', [AdminBookManagingController::class, 'updateBook']);
     
-    Route::get('/addBook', [AdminBookManagingController::class, 'showAddForm'])
-        ->name('admin.addBook');
-    Route::post('/addBook', [AdminBookManagingController::class, 'addBook']);
-    
+    Route::post('/addBook', [AdminBookManagingController::class, 'addBook'])->name('admin.addBook');
+    Route::get('/addBook', function () {
+        return view('admin.addBook');
+    })->name('admin.addBook');
+
     Route::get('/deleteBook/{id}', [AdminBookManagingController::class, 'deleteBook'])
         ->name('admin.deleteBook');
     
     Route::get('/contactForm', [AdminContactFormController::class, 'showContactForm'])
         ->name('admin.contactForm');
+    Route::post('/contactForm/update/{id}', [AdminContactFormController::class, 'updateContactForm'])->name('admin.contactForm.update');
+
 });
 
 // Authenticated User Routes
@@ -71,9 +74,10 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('auth.profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
-Route::get('/admin/contactForm', [AdminContactFormController::class, 'showContactForm'])->name('contactForm');
 
 Route::get('/admin/manageUsers', [AdminManageUsersController::class, 'showUsers']);
 
 Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 
+
+Auth::routes();
