@@ -167,6 +167,24 @@
             justify-content: center;
         }
 
+        .title{
+            display: flex;
+            align-items: justify; 
+            justify-content: space-between; 
+        }
+
+        .addNewBtn{
+            background-color:rgb(219, 219, 219);
+            border: none;
+            height: 40px;
+            line-height: normal; 
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 18px;
+        }
+
 </style>
 
 </head>
@@ -176,7 +194,8 @@
 
 <div class="userslist">
         <div class= "title">
-            <h1>Manage Admin</h1>
+            <h1>Manage Admin Account</h1>
+            <button class="addNewBtn"><a href="#" style="text-decoration: none; color: black;">+ New </a></button>
         </div>
         <div class="table-container">
             <table border="1">
@@ -217,17 +236,6 @@
                 </tbody>
             </table>
         </div>
-            
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
         <span>
             {{$users->links('pagination::bootstrap-4')}}
         </span>

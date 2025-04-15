@@ -190,7 +190,7 @@
     <!-- Main Content -->
     <div class="booklist">
         <div class= "title">
-            <h1>BookList</h1>
+            <h1>Manage Books</h1>
             <button class="addNewBtn"><a href="{{ route('admin.addBook') }}" style="text-decoration: none; color: black;">+ New</a></button>
         </div>
         <div class="table-container">
