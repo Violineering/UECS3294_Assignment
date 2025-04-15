@@ -154,7 +154,20 @@
             background-color:rgb(163, 163, 163);
             font-weight: bold;
         }
-    </style>
+
+        #modalOverlay{
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: 1000; display: flex;
+            align-items: center; 
+            justify-content: center;
+        }
+
+</style>
 
 </head>
 <body>
@@ -183,7 +196,7 @@
                             <div class="dropdown">
                                 <button class="actionBtn" onclick="toggleDropdown(this)">Action ▼</button>
                                 <div class="dropdown-content">
-                                    <a href = #  onclick="openModal({{ $ContactForm->id }})">Update</a>
+                                    <a href="#" onclick="openModal({{ $user->id }})">Update</a>
                                     <a href =#>Delete</a>
                                 </div>
                             </div>
@@ -204,53 +217,156 @@
                 </tbody>
             </table>
         </div>
+            
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
         <span>
             {{$users->links('pagination::bootstrap-4')}}
         </span>
 </div>
-<div id="updateModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-    background-color: rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
-    <div style="background:white; padding:20px; border-radius:8px; width:400px; max-width:90%;">
-        <h3>Update Contact Form</h3>
-        <form id="modalForm" method="POST">
-            @csrf
-            <textarea name="reply" id="modalReply" placeholder="Write a reply..." required style="width:100%; height:100px;"></textarea><br><br>
-            <select name="status" id="modalStatus" required style="width:100%;">
-                <option value="" disabled selected id="statusPlaceholder">Select status</option>
-                <option value="Pending">Pending</option>
-                <option value="In-progress">In-progress</option>
-                <option value="Resolved">Resolved</option>       
-            </select><br><br>
-            <button type="submit" class="actionBtn">Save</button>
-            <button type="button" class="actionBtn" style="background-color:gray;" onclick="closeModal()">Cancel</button>
-        </form>
+
+
+<div id="editModal" style="display: {{ $errors->any() ? 'block' : 'none' }};">
+    <div id="modalOverlay" style="display: {{ $errors->any() ? 'flex' : 'none' }};">
+        <div style="background: white; padding: 20px; border-radius: 8px; min-width: 300px; position: relative;">
+            <h3>Update Admin</h3>
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('auth.profile.update') }}" enctype="multipart/form-data">
+                @csrf
+                
+                <div class="mb-4">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ old('name', $user->name) }}" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control readonly-email" id="email" 
+                           value="{{ $user->email }}" readonly>
+                    <small class="form-text">Contact support to change your email</small>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="profile_image" class="form-label">Profile Image</label>
+                    <input type="file" class="form-control" id="profile_image" name="profile_image"
+                           accept="image/jpeg, image/png, image/jpg, image/gif">
+                    <div class="form-text">Max 2MB. JPG, PNG, or GIF.</div>
+                    @if($user->profile_image)
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" 
+                                   id="remove_image" name="remove_image" value="1">
+                            <label class="form-check-label" for="remove_image">
+                                Remove current profile image
+                            </label>
+                        </div>
+                    @endif
+                </div>
+                
+                <div class="password-section">
+                    <h5 class="mb-3">Change Password (optional)</h5>
+                    
+                    <div class="mb-4 position-relative">
+                        <label for="current_password" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="current_password" 
+                               name="current_password">
+                        <i class="bi bi-eye-slash password-toggle" 
+                           onclick="togglePassword('current_password')"></i>
+                        <div class="form-text">Required only if changing password</div>
+                    </div>
+                    
+                    <div class="mb-4 position-relative">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="new_password" 
+                               name="new_password">
+                        <i class="bi bi-eye-slash password-toggle" 
+                           onclick="togglePassword('new_password')"></i>
+                    </div>
+                    
+                    <div class="mb-4 position-relative">
+                        <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="new_password_confirmation" 
+                               name="new_password_confirmation">
+                        <i class="bi bi-eye-slash password-toggle" 
+                           onclick="togglePassword('new_password_confirmation')"></i>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                    <button type="button" onclick="closeModal()">Close</button>
+
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 <script>
-        function toggleDropdown(button) {
-            var dropdownContent = button.nextElementSibling;
-            
-            // Close all other dropdowns
-            document.querySelectorAll(".dropdown-content").forEach(menu => {
-                if (menu !== dropdownContent) {
-                    menu.style.display = "none";
-                }
-            });
+    @if(session('success'))
+        window.onload = function() {
+            alert("{{ session('success') }}");
+        };
+    @endif
 
-            // Toggle the visibility of the clicked dropdown menu
-            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
-        }
+    function toggleDropdown(button) {
+        var dropdownContent = button.nextElementSibling;
 
-        // Close dropdown when clicking outside
-        document.addEventListener("click", function(event) {
-            if (!event.target.matches(".actionBtn")) {
-                document.querySelectorAll(".dropdown-content").forEach(menu => {
-                    menu.style.display = "none";
-                });
+        // Close other dropdowns
+        document.querySelectorAll(".dropdown-content").forEach(menu => {
+            if (menu !== dropdownContent) {
+                menu.style.display = "none";
             }
         });
-    </script>
+
+        // Toggle current dropdown
+        dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function(event) {
+        if (!event.target.matches(".actionBtn")) {
+            document.querySelectorAll(".dropdown-content").forEach(menu => {
+                menu.style.display = "none";
+            });
+        }
+    });
+
+    function openModal(userId) {
+        document.getElementById("editModal").style.display = "block";
+        document.getElementById("modalOverlay").style.display = "flex";
+
+        const form = document.getElementById("editAdminForm");
+        form.action = "/admin/manageAdmin/" + userId;
+
+        document.getElementById("adminId").value = userId;
+
+        // Optionally pre-fill form (AJAX or pass data inline)
+    }
+
+    // Close Modal Function
+    function closeModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+</script>
 
 </body>
 </html>

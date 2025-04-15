@@ -45,6 +45,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('admin.contactForm');
     Route::post('/contactForm/update/{id}', [AdminContactFormController::class, 'updateContactForm'])->name('admin.contactForm.update');
 
+    Route::post('/admin/manageAdmin', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
 
 // Authenticated User Routes

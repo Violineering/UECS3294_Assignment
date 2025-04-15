@@ -12,4 +12,5 @@ class AdminManageAdminController extends Controller
         $users = User::where('role', 'admin') -> paginate(8);
         return view('admin.manageAdmin', ['users' => $users]);
     }
+
 }
