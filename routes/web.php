@@ -80,5 +80,9 @@ Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin'
 
 Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 
+Route::get('/contactUs', function () {
+    return view('user.contactUs');
+});
+
 
 Auth::routes();

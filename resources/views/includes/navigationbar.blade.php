@@ -147,7 +147,7 @@
             <a href="{{ url('/') }}" class="logo-link">Unpopular.</a>
         </div>
         <ul class="nav-links">
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="/contactUs">Contact Us</a></li>
             <li><a href="#">Categories</a></li>
             <li><a href="/book/booklist">Books</a></li>
             <li><a href="/purchased_books">My Books</a></li>
