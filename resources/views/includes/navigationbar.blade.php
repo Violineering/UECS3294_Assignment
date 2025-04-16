@@ -201,7 +201,8 @@
                 </a>
                 <div class="profile-tooltip">
                     <p class="mb-2">{{ Auth::user()->name }}</p>
-                    <a href="{{ route('auth.profile') }}" class="d-block">Profile</a>
+                    <p><a href="{{ route('auth.profile') }}" class="d-block">Profile</a></p>
+                    <p><a href="{{ route('user.contactUsResponses') }}" class="d-block">Contact Us Responses</a><p>
                     <form method="POST" action="{{ route('logout') }}" class="mt-2">
                         @csrf
                         <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
     /* Sidebar Styling */
     .sidebar {
@@ -49,7 +51,22 @@
 
     .sidebar ul li a:hover {
         background: #34495e;
-        padding-left: 10px;
+    }
+
+    .logoutBtn :hover {
+        background: #34495e;
+    }
+
+    .logoutBtn {
+        margin-left: -8px;
+        min-height: 4px;
+        min-width: 20px;
+    }
+
+    .sidebar ul li i{
+        padding-right: 10px;
+        min-height: 4px;
+        min-width: 20px;
     }
 
     /* Toggle Button */
@@ -65,6 +82,10 @@
         font-size: 18px;
         transition: right 0.3s ease;
     }
+
+    .sidebar.collapsed .link-text {
+        display: none;
+    }
 </style>
 
 <div class="sidebar" id="sidebar">
@@ -72,11 +93,33 @@
     <h2 class="logo">Unpopular.</h2>
     <hr>
     <ul>
-        <li><a href="/admin/bookManaging">Manage Books</a></li>
-        <li><a href="/admin/manageAdmin">Manage Admin</a></li>
-        <li><a href="/admin/contactForm">Manage Contact Form</a></li>
         <li>
-            <button type="submit" style="background: none; border: none; color: white; cursor: pointer;">Logout</button>
+            <a href="/admin/bookManaging">
+                <i class="fas fa-book"></i>
+                <span class="link-text">Manage Books</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/manageAdmin">
+                <i class="fas fa-user-cog"></i>
+                <span class="link-text">Manage Admin</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/contactForm">
+                <i class="fas fa-envelope"></i>
+                <span class="link-text">Manage Contact Form</span>
+            </a>
+        </li>
+        <hr>
+        <li>
+            <form method="POST" action="{{ route('logout') }}" class="mt-2">
+                @csrf
+                <button type="submit" style="background: none; border: none; color: white; cursor: pointer;" class="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="link-text">Logout</span>
+                </button>
+            </form>
         </li>
     </ul>
 </div>

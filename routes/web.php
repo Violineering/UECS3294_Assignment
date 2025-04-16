@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\AdminManageAdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactUsController;
 
 // Public Routes
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
@@ -64,6 +65,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('cart.processPayment');
     Route::view('/payment/success', 'user.payment-success')
         ->name('user.payment-success');
+
+    Route::get('/contactUs', [ContactUsController::class, 'create'])->name('contact.create');
+    Route::post('/contactUs', [ContactUsController::class, 'store'])->name('contact.store');
+
+    Route::get('/contactUsResponses', [ContactUsController::class, 'index'])->name('user.contactUsResponses');
 });
 
 // Signup Routes
@@ -79,10 +85,5 @@ Route::middleware('auth')->prefix('auth')->group(function () {
 Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 
 Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
-
-Route::get('/contactUs', function () {
-    return view('user.contactUs');
-});
-
 
 Auth::routes();
