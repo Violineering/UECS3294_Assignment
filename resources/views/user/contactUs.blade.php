@@ -9,12 +9,13 @@
 <style>
     @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 
-    /* Reset default spacing on body and html */
+/* Reset default spacing on body and html */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
+  background-color: #f5f0eb;
 }
 
 /* Make your #container fill the page */
@@ -23,9 +24,6 @@ html, body {
   height: 100vh;
   padding: 0;
   margin: 0;
-}
-body {
-    background-color: #f5f0eb;
 }
 
 button {
