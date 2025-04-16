@@ -63,4 +63,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(ContactForm::class, 'user_id');
     }
+
+    /**
+     * A user can have multiple items in their shopping cart.
+     */
+    public function cartItems()
+    {
+        return $this->hasMany(ShoppingCart::class, 'user_id');
+    }
 }

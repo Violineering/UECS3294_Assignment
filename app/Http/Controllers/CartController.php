@@ -149,7 +149,37 @@ class CartController extends Controller
         // Validate credit card input
         $validatedData = $request->validate([
             'card_number' => 'required|string|size:16',
-            'expiry_date' => 'required|string|size:5',
+            'expiry_month' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:12',
+                function ($attribute, $value, $fail) {
+                    if ($value < 1 || $value > 12) {
+                        return $fail('The month must be between 1 and 12.');
+                    }
+                },
+            ],
+            'expiry_year' => [
+                'required',
+                'integer',
+                'min:00', // Allow 2 digit years
+                'max:99', // Allow 2 digit years (e.g., 2025 -> 25)
+                function ($attribute, $value, $fail) {
+                    $currentYear = (int) date('y');
+                    $currentMonth = (int) date('m');
+                    $expiryYear = (int) $value;
+        
+                    if ($expiryYear < $currentYear) {
+                        return $fail('The year must be a future year.');
+                    }
+        
+                    // If expiry year is the current year, check if the month has passed
+                    if ($expiryYear === $currentYear && $value < $currentMonth) {
+                        return $fail('The expiry month must be a future month.');
+                    }
+                },
+            ],
             'cvv' => 'required|string|size:3',
             'cardholder_name' => 'required|string|max:50',
         ]);

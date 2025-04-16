@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -32,6 +33,11 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect('/admin/bookManaging');
         }
+        // Fetch the cart count from the database or session
+        $cartCount = $user->cartItems()->count(); // Assuming you have a cart relationship in the User model
+
+        // Update the session with the current cart count
+        Session::put('cart_count', $cartCount);
         return redirect('/welcome');
     }
 

@@ -39,22 +39,14 @@
 
     <form action="{{ route('cart.checkout') }}" method="GET">
         @csrf
-        <h1>Shopping Cart</h1>
+        <h1>Shopping Cart ({{session('cart_count')}})</h1>
         <div class="cart-container">
             @if($cartItems->count() > 0)
             <ul>
-                @php
-                    // Retrieve selected items from session
-                    $selectedItemIds = session('checkout_items', collect());
-                    // Pluck the titles from the selected items in the session
-                    $selectedItemTitles = $selectedItemIds->pluck('title')->toArray();
-                @endphp
                 @foreach($cartItems as $item)
                     <li>
                         <div class="cart-item">
-                           <!-- Check if the item title is in the session selected items -->
-                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}" 
-                                {{ in_array($item->title, $selectedItemTitles) ? 'checked' : '' }}>
+                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
                             
                             <span>{{ $item->title }}</span><br>
                             <span>{{ $item->price }}</span><br>
@@ -97,6 +89,6 @@
         }
     </script>
 
-    @include('includes.footer') <!-- Include the footer -->
+    @include('includes.footer') 
 </body>
 </html>

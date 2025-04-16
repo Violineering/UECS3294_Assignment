@@ -137,8 +137,10 @@
                     @csrf
                     <input type="text" name="card_number" placeholder="Card Number">
                     <span style="color:red">@error('card_number'){{$message}}@enderror</span><br>
-                    <input type="text" name="expiry_date" placeholder="MM/YY">
-                    <span style="color:red">@error('expiry_date'){{$message}}@enderror</span><br>
+                    <input type="text" name="expiry_month" placeholder="MM" maxlength="2" style="width: 50px;">
+                    <input type="text" name="expiry_year" placeholder="YY" maxlength="2" style="width: 50px;">
+                    <span style="color:red">@error('expiry_month'){{$message}}@enderror</span><br>
+                    <span style="color:red">@error('expiry_year'){{$message}}@enderror</span><br>
                     <input type="text" name="cvv" placeholder="CVV">
                     <span style="color:red">@error('cvv'){{$message}}@enderror</span><br>
                     <input type="text" name="cardholder_name" placeholder="Cardholder Name">
