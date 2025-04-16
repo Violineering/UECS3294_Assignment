@@ -139,6 +139,15 @@
         box-sizing: border-box;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
+
+    header.navigation-header input,
+    header.navigation-header input[type="text"] {
+    all: unset; /* Resets inherited styles */
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 10px;
+    font-size: 16px;
+    background: transparent;
+    }
 </style>
 
 <header class="navigation-header">
