@@ -33,8 +33,9 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect('/admin/bookManaging');
         }
-        // Fetch the cart count from the database or session
-        $cartCount = $user->cartItems()->count(); // Assuming you have a cart relationship in the User model
+
+        // Fetch the cart count from the session
+        $cartCount = $user->cartItems()->count(); 
 
         // Update the session with the current cart count
         Session::put('cart_count', $cartCount);

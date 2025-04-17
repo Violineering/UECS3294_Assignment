@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Gate;
 
 class AdminMiddleware
 {
@@ -20,9 +21,8 @@ class AdminMiddleware
         return redirect()->route('login');
     }
 
-    // Changed to boolean check
-    if (Auth::user()->is_admin !== true) {
-        return redirect('/')->with('error', 'Access denied');
+    if (!Gate::allows('isAdmin')) {
+        abort(403, 'Access denied');
     }
 
     return $next($request);
