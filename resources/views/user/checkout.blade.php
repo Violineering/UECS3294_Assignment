@@ -135,16 +135,25 @@
                 <h3>Enter Your Credit Card Information</h3>
                 <form action="{{ route('cart.processPayment') }}" method="POST">
                     @csrf
-                    <input type="text" name="card_number" placeholder="Card Number">
-                    <span style="color:red">@error('card_number'){{$message}}@enderror</span><br>
-                    <input type="text" name="expiry_month" placeholder="MM" maxlength="2" style="width: 50px;">
-                    <input type="text" name="expiry_year" placeholder="YY" maxlength="2" style="width: 50px;">
-                    <span style="color:red">@error('expiry_month'){{$message}}@enderror</span><br>
-                    <span style="color:red">@error('expiry_year'){{$message}}@enderror</span><br>
-                    <input type="text" name="cvv" placeholder="CVV">
-                    <span style="color:red">@error('cvv'){{$message}}@enderror</span><br>
-                    <input type="text" name="cardholder_name" placeholder="Cardholder Name">
-                    <span style="color:red">@error('cardholder_name'){{$message}}@enderror</span><br>
+
+                    <label for="card_number">Card Number</label>
+                    <input type="text" id="card_number" name="card_number" placeholder="e.g. 1234 5678 9012 3456">
+                    <span style="color:red">@error('card_number'){{ $message }}@enderror</span><br><br>
+
+                    <label for="expiry_month">Expiry Date</label><br>
+                    <input type="text" id="expiry_month" name="expiry_month" placeholder="MM" maxlength="2" style="width: 50px;">
+                    <input type="text" id="expiry_year" name="expiry_year" placeholder="YY" maxlength="2" style="width: 50px;"><br>
+                    <span style="color:red">@error('expiry_month'){{ $message }}@enderror</span><br>
+                    <span style="color:red">@error('expiry_year'){{ $message }}@enderror</span><br>
+
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" placeholder="e.g. 123">
+                    <span style="color:red">@error('cvv'){{ $message }}@enderror</span><br><br>
+
+                    <label for="cardholder_name">Cardholder Name</label>
+                    <input type="text" id="cardholder_name" name="cardholder_name" placeholder="e.g. Emma Charlotte Duerre Watson">
+                    <span style="color:red">@error('cardholder_name'){{ $message }}@enderror</span><br><br>
+
                     <button type="submit" class="payment-btn">Confirm Payment</button>
                 </form>
             </div>
