@@ -50,7 +50,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 });
 
 // Authenticated User Routes
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/welcome', [WelcomeController::class, 'welcome'])
         ->name('welcome');
     Route::get('/cart', [CartController::class, 'cart'])
