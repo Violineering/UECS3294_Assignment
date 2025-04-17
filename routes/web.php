@@ -51,8 +51,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 // Authenticated User Routes
 Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('/welcome', [WelcomeController::class, 'welcome'])
-        ->name('welcome');
     Route::get('/cart', [CartController::class, 'cart'])
         ->name('cart');
     Route::post('/cart/add', [CartController::class, 'addToCart'])
@@ -86,5 +84,4 @@ Route::middleware('auth')->prefix('auth')->group(function () {
 Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 
 Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
-
 Auth::routes();
