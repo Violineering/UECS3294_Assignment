@@ -15,7 +15,9 @@ use App\Http\Controllers\CategoryController;
 
 
 // Public Routes
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::get('/', [WelcomeController::class, 'welcome'])
+    ->name('welcome')
+    ->middleware('prevent.admin'); // Apply the middleware here
 
 // Book Routes
 Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
