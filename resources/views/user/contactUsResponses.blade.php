@@ -127,7 +127,7 @@
                         <th>Action</th>
                         <th>Your Message</th>
                         <th>Reply</th>
-                        <th>Message at</th>
+                        <th>Created at</th>
                     </tr>
                 </thead>
                 <tbody>
