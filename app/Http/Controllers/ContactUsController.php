@@ -38,7 +38,7 @@ class ContactUsController extends Controller
     public function index()
     {
         // Fetch the user's messages and replies
-        $messages = ContactForm::where('user_id', auth()->id())->paginate(10); // Adjust as needed
+        $messages = ContactForm::where('user_id', auth()->id())->paginate(10); 
 
         return view('user.contactUsResponses', compact('messages'));
     }

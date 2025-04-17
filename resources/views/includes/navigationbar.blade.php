@@ -28,9 +28,10 @@
     header.navigation-header .nav-links {
         list-style: none;
         display: flex;
-        gap: 20px;
+        gap: 35px;
         margin: 0;
         padding: 0;
+        margin-left: -110px;
     }
 
     header.navigation-header .nav-links li a {
@@ -45,47 +46,6 @@
         color: #007AFF;
     }
 
-    /* Search Bar Styling - Scoped to navigation only */
-    header.navigation-header .search-container {
-        display: flex;
-        align-items: center;
-        background: #f5f5f5;
-        border-radius: 10px;
-        padding: 5px 10px;
-        width: 300px;
-        border: 2px solid transparent;
-        transition: 0.3s ease-in-out;
-        margin-left: auto;
-        position: relative; /* Added for positioning */
-    }
-
-    header.navigation-header .search-container:focus-within {
-        border-color: rgb(170,170,170);
-    }
-
-    header.navigation-header .search-container input {
-        border: none;
-        outline: none;
-        background: transparent;
-        flex: 1;
-        padding: 10px;
-        font-size: 16px;
-        width: calc(100% - 30px); /* Make space for icon */
-    }
-
-    header.navigation-header .search-container .searchButton {
-        position: absolute;
-        right: 10px;
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-    }
-
-    header.navigation-header .search-container .searchButton:hover {
-        filter: brightness(2); 
-        transform: scale(1.2); 
-    }
 
     header.navigation-header .logo-link {
         text-decoration: none;
@@ -109,7 +69,7 @@
     }
 
     header.navigation-header .profile-icon-container:hover {
-        background-color: #f0f0f0; /* Light grey background on hover */
+        background-color: #f0f0f0; 
     }
 
     header.navigation-header .profile-icon {
@@ -130,7 +90,7 @@
     header.navigation-header .profile-tooltip {
         position: absolute;
         right: 0;
-        top: 60px; /* Slightly lower for better visual */
+        top: 60px; 
         background: white;
         padding: 12px;
         border-radius: 8px;
@@ -154,7 +114,6 @@
         text-decoration: none; 
     }
 
-    /* Protection against other pages' styles */
     header.navigation-header * {
         box-sizing: border-box;
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -162,7 +121,7 @@
 
     header.navigation-header input,
     header.navigation-header input[type="text"] {
-        all: unset; /* Resets inherited styles */
+        all: unset; 
         font-family: -apple-system, BlinkMacSystemFont, sans-serif;
         padding: 10px;
         font-size: 16px;
@@ -206,7 +165,7 @@
         </div>
         <ul class="nav-links">
             <li><a href="/contactUs">Contact Us</a></li>
-            <li><a href="#">Categories</a></li>
+            <li><a href="/bookCategories">Categories</a></li>
             <li><a href="/book/booklist">Books</a></li>
             <li><a href="/purchased_books">My Books</a></li>
             <li>
@@ -230,11 +189,6 @@
                 </a>
             </li>
         </ul>
-        <div class="search-container">
-            <input type="text" placeholder="Search books here...">
-            <img class="searchButton" src="{{ asset('icon/search.png') }}" alt="Search">
-        </div>
-        
         <div class="profile-icon-container" id="profileIconContainer">
             @auth
                 <a href="{{ route('auth.profile') }}">
@@ -280,7 +234,7 @@
         profileContainer.addEventListener('mouseleave', function() {
             timeout = setTimeout(function() {
                 tooltip.style.display = 'none';
-            }, 500); // 👈 500 milliseconds (0.5 seconds) delay before hiding
+            }, 500); 
         });
 
         tooltip.addEventListener('mouseenter', function() {
