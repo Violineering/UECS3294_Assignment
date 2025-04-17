@@ -100,38 +100,58 @@
     header.navigation-header .profile-icon-container {
         position: relative;
         margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
     }
-    
+
+    header.navigation-header .profile-icon-container:hover {
+        background-color: #f0f0f0; /* Light grey background on hover */
+    }
+
     header.navigation-header .profile-icon {
         width: 40px;
         height: 40px;
         border-radius: 50%;
         cursor: pointer;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, border-color 0.3s ease;
         object-fit: cover;
         border: 2px solid transparent;
     }
-    
+
     header.navigation-header .profile-icon:hover {
         transform: scale(1.1);
         border-color: #007AFF;
     }
-    
+
     header.navigation-header .profile-tooltip {
         position: absolute;
         right: 0;
-        top: 50px;
+        top: 60px; /* Slightly lower for better visual */
         background: white;
-        padding: 10px;
+        padding: 12px;
         border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         display: none;
         z-index: 100;
-        min-width: 150px;
+        min-width: 180px;
     }
-    
-    header.navigation-header .profile-icon-container:hover .profile-tooltip {
-        display: block;
+
+    header.navigation-header .profile-tooltip p, 
+    header.navigation-header .profile-tooltip a {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    header.navigation-header .profile-tooltip a:hover {
+        color: #007AFF;
+        font-size: 15px; 
+        text-decoration: none; 
     }
 
     /* Protection against other pages' styles */
@@ -142,12 +162,41 @@
 
     header.navigation-header input,
     header.navigation-header input[type="text"] {
-    all: unset; /* Resets inherited styles */
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    padding: 10px;
-    font-size: 16px;
-    background: transparent;
+        all: unset; /* Resets inherited styles */
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        padding: 10px;
+        font-size: 16px;
+        background: transparent;
+        }
+
+        header.navigation-header .profile-tooltip p:first-child {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
     }
+
+    header.navigation-header .profile-tooltip form {
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        width: 100%; 
+    }
+
+    header.navigation-header .profile-tooltip form button {
+        background-color: black; 
+        color: white; 
+        padding: 8px 15px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer;
+        font-size: 14px; 
+        transition: background-color 0.3s ease; 
+    }
+
+    header.navigation-header .profile-tooltip form button:hover {
+        background-color: grey;
+    }
+
 </style>
 
 <header class="navigation-header">
@@ -186,7 +235,7 @@
             <img class="searchButton" src="{{ asset('icon/search.png') }}" alt="Search">
         </div>
         
-        <div class="profile-icon-container">
+        <div class="profile-icon-container" id="profileIconContainer">
             @auth
                 <a href="{{ route('auth.profile') }}">
                     @if(Auth::user()->profile_image)
@@ -217,4 +266,33 @@
             @endauth
         </div>
     </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const profileContainer = document.getElementById('profileIconContainer');
+        const tooltip = profileContainer.querySelector('.profile-tooltip');
+        let timeout;
+
+        profileContainer.addEventListener('mouseenter', function() {
+            clearTimeout(timeout);
+            tooltip.style.display = 'block';
+        });
+
+        profileContainer.addEventListener('mouseleave', function() {
+            timeout = setTimeout(function() {
+                tooltip.style.display = 'none';
+            }, 500); // 👈 500 milliseconds (0.5 seconds) delay before hiding
+        });
+
+        tooltip.addEventListener('mouseenter', function() {
+            clearTimeout(timeout);
+            tooltip.style.display = 'block';
+        });
+
+        tooltip.addEventListener('mouseleave', function() {
+            timeout = setTimeout(function() {
+                tooltip.style.display = 'none';
+            }, 500);
+        });
+    });
+</script>
 </header>

@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/contactUs', [ContactUsController::class, 'store'])->name('contact.store');
 
     Route::get('/contactUsResponses', [ContactUsController::class, 'index'])->name('user.contactUsResponses');
+    Route::delete('/contact-us/{id}', [ContactUsController::class, 'delete'])->name('messages.delete');
 });
 
 // Signup Routes

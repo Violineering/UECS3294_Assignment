@@ -7,6 +7,10 @@
     <style>
         body {
             background-color: #f5f0eb;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .title {
@@ -111,22 +115,38 @@
     @include('includes.navigationbar')
     <!-- Main Content -->
     <div class="MessageList">
-        <div class="title">
-            <h1>Contact Us Responses</h1>
-        </div>
+    <div class="title">
+        <h1>Contact Us Responses</h1>
+    </div>
+
+    @if ($messages->count() > 0)
         <div class="table-container">
             <table border="1">
                 <thead>
                     <tr>
+                        <th>Action</th>
                         <th>Your Message</th>
                         <th>Reply</th>
                         <th>Message at</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($messages as $message)
+                    @foreach ($messages as $message)
                         <tr>
+                            <!-- Action (Delete Button) -->
+                            <td style="text-align: center;">
+                                <form action="{{ route('messages.delete', $message->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this message?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                        <img src="https://img.icons8.com/ios-glyphs/24/808080/trash--v1.png" alt="Delete" title="Delete">
+                                </form>
+                            </td>
+
+                            <!-- Your Message -->
                             <td>{{ $message->issue }}</td>
+
+                            <!-- Reply -->
                             <td>
                                 @if ($message->reply)
                                     {{ $message->reply }}
@@ -134,13 +154,11 @@
                                     <span class="no-reply">No reply yet</span>
                                 @endif
                             </td>
+
+                            <!-- Message At -->
                             <td>{{ $message->created_at->format('d M Y, h:i A') }}</td>
                         </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3" style="text-align: center;">No messages found.</td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -148,7 +166,10 @@
         <span>
             {{ $messages->links('pagination::bootstrap-4') }}
         </span>
-    </div>
+    @else
+        <p style="text-align: center; margin-top: 30px;">No messages found.</p>
+    @endif
+</div>
 
     @include('includes.footer')
 

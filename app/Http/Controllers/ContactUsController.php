@@ -43,4 +43,13 @@ class ContactUsController extends Controller
         return view('user.contactUsResponses', compact('messages'));
     }
 
+    public function delete($id)
+    {
+        $message = ContactForm::findOrFail($id);
+        $message->delete();
+
+        return redirect()->back()->with('success', 'Message deleted successfully.');
+    }
+
+
 }
