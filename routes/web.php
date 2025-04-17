@@ -16,9 +16,9 @@ use App\Http\Controllers\ContactUsController;
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
 // Book Routes
+Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
 Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book');
-Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books');
 
 // Authentication Routes
 Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -47,6 +47,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/contactForm/update/{id}', [AdminContactFormController::class, 'updateContactForm'])->name('admin.contactForm.update');
 
     Route::post('/admin/manageAdmin', [ProfileController::class, 'update'])->name('auth.profile.update');
+    Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 });
 
 // Authenticated User Routes
@@ -81,7 +82,4 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
 
-Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
-
-Route::get('/book/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 Auth::routes();

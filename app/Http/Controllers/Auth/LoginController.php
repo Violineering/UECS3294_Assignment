@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         // Update the session with the current cart count
         Session::put('cart_count', $cartCount);
-        return redirect('/welcome');
+        return redirect('/');
     }
 
     /**
@@ -47,6 +47,7 @@ class LoginController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
