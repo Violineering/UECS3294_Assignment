@@ -212,7 +212,13 @@
                     <td>{{ $ContactForm->user_id }}</td>
                     <td>{{ $ContactForm->user->name ?? 'Unknown' }}</td>
                     <td>{{ $ContactForm->issue }}</td>
-                    <td>{{ $ContactForm->reply }}</td>
+                    <td>
+                        @if ($ContactForm->reply)
+                            {{ $ContactForm->reply }}
+                        @else
+                            <span style="color: grey; font-style: italic;">No reply yet</span>
+                        @endif
+                    </td>
                     <td class="
                         {{ $ContactForm->status === 'pending' ? 'status-pending' : '' }}
                         {{ $ContactForm->status === 'resolved' ? 'status-resolved' : '' }}
@@ -239,7 +245,7 @@
         <h3>Update Contact Form</h3>
         <form id="modalForm" method="POST">
             @csrf
-            <textarea name="reply" id="modalReply" placeholder="Write a reply..." required style="width:100%; height:100px;"></textarea><br><br>
+            <textarea name="reply" id="modalReply" placeholder="Write a reply..." style="width:100%; height:100px;"></textarea><br><br>
             <select name="status" id="modalStatus" required style="width:100%;">
                 <option value="" disabled selected id="statusPlaceholder">Select status</option>
                 <option value="Pending">Pending</option>
