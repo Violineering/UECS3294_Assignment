@@ -171,12 +171,12 @@ class CartController extends Controller
                     $expiryYear = (int) $value;
         
                     if ($expiryYear < $currentYear) {
-                        return $fail('The year must be a future year.');
+                        return $fail('The card is expired.');
                     }
         
                     // If expiry year is the current year, check if the month has passed
                     if ($expiryYear === $currentYear && $value < $currentMonth) {
-                        return $fail('The expiry month must be a future month.');
+                        return $fail('The card is expired.');
                     }
                 },
             ],

@@ -44,23 +44,21 @@
             @if($cartItems->count() > 0)
             <ul>
                 @foreach($cartItems as $item)
-                    <li>
-                        <div class="cart-item">
-                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
-                            
-                            <span>{{ $item->title }}</span><br>
-                            <span>{{ $item->price }}</span><br>
-                            <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>  
-          
-                            <!-- Pass additional data as hidden inputs -->
-                            <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->price }}">
-                            <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->title }}">
-                            <input type="hidden" name="cart_data[{{ $item->id }}][cover_image]" value="{{ $item->cover_image }}">
+                    <div class="cart-item">
+                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
+                        
+                        <span>{{ $item->title }}</span><br>
+                        <span>RM {{ $item->price }}</span><br>
+                        <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>  
+        
+                        <!-- Pass additional data as hidden inputs -->
+                        <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->price }}">
+                        <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->title }}">
+                        <input type="hidden" name="cart_data[{{ $item->id }}][cover_image]" value="{{ $item->cover_image }}">
 
-                            <!-- Remove button -->
-                            <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})">Remove</button>
-                        </div>
-                    </li>
+                        <!-- Remove button -->
+                        <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})">Remove</button>
+                    </div>
                 @endforeach
             </ul>
             <button type="submit" class="checkout-btn">Checkout Selected Items</button>
