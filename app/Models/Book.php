@@ -27,4 +27,10 @@ class Book extends Model
         'pdf_file',
         'price',
     ];
+
+    // Each book can be added to many shopping carts.
+    public function shoppingCarts()
+    {
+        return $this->hasMany(ShoppingCart::class);
+    }
 }

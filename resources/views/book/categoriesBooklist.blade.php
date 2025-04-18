@@ -6,27 +6,14 @@
     <title>Unpopular. - Book List</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <style>
-        
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f0eb;
-            color: #1d1d1f;
-            flex: 1;
-        }
+    
 
         /* Make the container flex properly */
         .book-page {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-y: scroll;
         }
 
         /* HEADER */

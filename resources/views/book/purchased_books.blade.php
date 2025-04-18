@@ -17,6 +17,7 @@
             background-color: #f5f0eb;
             color: #1d1d1f;
             flex: 1;
+            overflow-y: scroll;
         }
 
         header {
