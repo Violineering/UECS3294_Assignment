@@ -222,7 +222,17 @@
                         <input type = "text" name = "genre" value="{{ $book['genre'] }}" >
                         <span style="color:red">@error('genre'){{$message}}@enderror</span><br>
                     </div>
+
+                    <div class="form-group">
+                        <label><span style="color:red">* </span>ISBN:</label>
+                        <input type="text" name="isbn" value="{{ $book['isbn'] ?? '' }}">
+                        <span style="color:red">@error('isbn'){{$message}}@enderror</span><br>
+                    </div>
+
                 </div>
+
+               
+
 
                 <div class="form-right">
                     <div class="form-group">
