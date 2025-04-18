@@ -251,6 +251,12 @@
                         <input type = "text" name = "language" value="{{ $book['language'] }}" >
                         <span style="color:red">@error('language'){{$message}}@enderror</span><br>
                     </div>
+
+                    <div class="form-group">
+                        <label><span style="color:red">* </span>Price:</label>
+                        <input type="text" name="price" value="{{ $book['price'] }}">
+                        <span style="color:red">@error('price'){{$message}}@enderror</span><br>
+                    </div>
                 </div>
             </div>
             <div class="description-container">
@@ -277,7 +283,7 @@
                 </div>
                 <div class="form-right-below">
                     <div class="form-group">
-                        <label><span style="color:red">* </span>Content (PDF):</label>
+                        <label>Content (PDF):</label>
                         <input type="file" name="pdf_file">
                         <span style="color:red">@error('pdf_file'){{$message}}@enderror</span><br>
                         <div class="pdf-preview-box">

@@ -245,6 +245,12 @@
                         <input type="text" name="language" placeholder="Enter language">
                         <span style="color:red">@error('language'){{$message}}@enderror</span><br>
                     </div>
+
+                    <div class="form-group">
+                        <label><span style="color:red">* </span>Price:</label>
+                        <input type="text" name="price" placeholder="Enter Price">
+                        <span style="color:red">@error('price'){{$message}}@enderror</span><br>
+                    </div>
                 </div>
             </div>
             <div class="description-container">

@@ -104,8 +104,23 @@
         }
 
         .no-reply {
-            color: #999999; /* light grey */
+            color: #999999; 
             font-style: italic;
+        }
+
+        .status-pending {
+            background-color: #d6d6d6; 
+            text-align: center;
+        }
+
+        .status-resolved {
+            background-color:rgb(115, 255, 120); 
+            text-align: center;
+        }
+
+        .status-inprogress {
+            background-color: #f9a825;;
+            text-align: center;
         }
 
     </style>
@@ -127,6 +142,7 @@
                         <th>Action</th>
                         <th>Your Message</th>
                         <th>Reply</th>
+                        <th>Status</th>
                         <th>Created at</th>
                     </tr>
                 </thead>
@@ -142,11 +158,7 @@
                                         <img src="https://img.icons8.com/ios-glyphs/24/808080/trash--v1.png" alt="Delete" title="Delete">
                                 </form>
                             </td>
-
-                            <!-- Your Message -->
                             <td>{{ $message->issue }}</td>
-
-                            <!-- Reply -->
                             <td>
                                 @if ($message->reply)
                                     {{ $message->reply }}
@@ -154,8 +166,13 @@
                                     <span class="no-reply">No reply yet</span>
                                 @endif
                             </td>
-
-                            <!-- Message At -->
+                            <td class="
+                                {{ $message->status === 'pending' ? 'status-pending' : '' }}
+                                {{ $message->status === 'resolved' ? 'status-resolved' : '' }}
+                                {{ $message->status === 'in-progress' ? 'status-inprogress' : '' }}
+                            ">
+                                {{ $message->status }}
+                            </td>
                             <td>{{ $message->created_at->format('d M Y, h:i A') }}</td>
                         </tr>
                     @endforeach

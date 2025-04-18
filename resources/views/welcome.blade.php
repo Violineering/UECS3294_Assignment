@@ -176,10 +176,9 @@
         }
         
         .bestSellerBook {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: max-content; /* Ensures it expands based on content */s
-        }
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
 
         .bestSellerBookContainer {
             position: relative;
@@ -189,11 +188,13 @@
         }
 
         .book-slide {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        /* New */
+        flex-shrink: 0;
+    }
 
         .book-item {
             display: flex;
@@ -354,41 +355,40 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-            const bestSellerBook = document.querySelector(".bestSellerBook");
-            const dots = document.querySelectorAll(".dot");
-            let currentIndex = 0;
-            const totalSlides = document.querySelectorAll(".book-slide").length;
+    const bestSellerBook = document.querySelector(".bestSellerBook");
+    const dots = document.querySelectorAll(".dot");
+    let currentIndex = 0;
+    const totalSlides = document.querySelectorAll(".book-slide").length;
 
-            function updateSlider() {
-                const offset = -currentIndex * 100;
-                bestSellerBook.style.transform = `translateX(${offset}%)`;
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle("active", i === currentIndex);
-                });
-            }
-
-            function moveToSlide(index) {
-                currentIndex = index;
-                updateSlider();
-            }
-
-            function autoScroll() {
-                currentIndex = (currentIndex + 1) % totalSlides;
-                updateSlider();
-            }
-
-            let slideInterval = setInterval(autoScroll, 5000);
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener("click", () => {
-                    moveToSlide(index);
-                    clearInterval(slideInterval);
-                    slideInterval = setInterval(autoScroll, 5000);
-                });
-            });
-
-            updateSlider();
+    function updateSlider() {
+        bestSellerBook.style.transform = `translateX(${-currentIndex * 100}%)`;
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentIndex);
         });
+    }
+
+    function moveToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+
+    function autoScroll() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlider();
+    }
+
+    let slideInterval = setInterval(autoScroll, 5000);
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            moveToSlide(index);
+            clearInterval(slideInterval);
+            slideInterval = setInterval(autoScroll, 5000);
+        });
+    });
+
+    updateSlider();
+});
     </script>
 
 @include('includes.footer')
