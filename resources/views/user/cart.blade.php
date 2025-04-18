@@ -11,6 +11,7 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden
         }
 
         body {
@@ -18,19 +19,9 @@
             background-color: #f5f0eb;
             color: #1d1d1f;
             flex: 1;
+            overflow-y: scroll;
         }
 
-        footer {
-            background-color: #1d1d1f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-        }
-
-        footer p {
-            margin: 0;
-        }
     </style>
 </head>
 
