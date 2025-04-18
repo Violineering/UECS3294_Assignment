@@ -11,6 +11,8 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\AdminManageAdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\CategoryController;
+
 
 // Public Routes
 Route::get('/', [WelcomeController::class, 'welcome'])
@@ -21,6 +23,10 @@ Route::get('/', [WelcomeController::class, 'welcome'])
 Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
 Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book');
+Route::get('/bookCategories', [CategoryController::class, 'ListCategories'])->name('book.bookCategories');
+Route::get('/category/{category}', [CategoryController::class, 'ListBooksByCategory'])->name('book.list_by_category');
+
+
 
 // Authentication Routes
 Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -83,5 +89,9 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('auth.profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 44602e371fcfb916d78c3e8abc27514fb84490e7
 Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 Auth::routes();

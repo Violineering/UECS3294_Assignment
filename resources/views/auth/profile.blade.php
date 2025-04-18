@@ -8,136 +8,138 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
     <style>
-    /* Selection styles - safe as they don't affect layout */
     ::selection {
-        background: #8a6d4b;
+        background: #333;
         color: white;
     }
     ::-webkit-selection {
-        background: #8a6d4b;
+        background: #333;
         color: white;
     }
     ::-moz-selection {
-        background: #8a6d4b;
+        background: #333;
         color: white;
     }
-    
+
     /* Scoped body styles */
     body.profile-page {
-        background: #ffffff;
+        background: #f5f0eb; 
         font-family: 'Inter UI', sans-serif;
-        color: #5a4a3a;
-        padding-top: 0; /* Remove padding that might affect nav */
+        color: #333;
+        padding-top: 0; 
     }
-    
-    /* Profile container - now more specific */
+
+    /* Profile container */
     .profile-page .profile-container {
         max-width: 700px;
         margin: 30px auto;
         padding: 40px;
         border-radius: 8px;
-        background: #fff9f2;
+        background: white; 
         box-shadow: 
-            inset 0 0 10px rgba(138, 109, 75, 0.05),
-            0 2px 15px rgba(138, 109, 75, 0.1);
-        border: 1px solid rgba(138, 109, 75, 0.1);
+            inset 0 0 10px rgba(0, 0, 0, 0.05),
+            0 2px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
-    
-    /* Profile image - made more specific */
+
+    /* Profile image */
     .profile-page .profile-img {
         width: 150px;
         height: 150px;
         object-fit: cover;
         border-radius: 50%;
         margin-bottom: 25px;
-        border: 3px solid #f0e6d9;
-        box-shadow: 0 2px 10px rgba(138, 109, 75, 0.1);
+        border: 3px solid #ccc; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
     }
-    
+
     .profile-page .profile-img:hover {
         transform: scale(1.05);
     }
-    
-    /* Form controls - scoped to profile only */
+
+    /* Form controls */
     .profile-page .profile-container .form-control {
         border-radius: 0;
-        padding: 8px 10px; /* Added horizontal padding */
+        padding: 8px 10px; 
         border: 0;
-        border-bottom: 1px solid #c9b8a5;
+        border-bottom: 1px solid #999; 
         background: transparent;
-        color: #5a4a3a;
+        color: #333; 
         transition: border-color 0.3s ease;
     }
-    
+
     .profile-page .profile-container .form-control:focus {
-        border-bottom-color: #8a6d4b;
+        border-bottom-color: #000; 
         box-shadow: none;
         background: transparent;
     }
-    
+
     /* Protected nav search input */
     header nav .search-container input {
-        padding: 10px !important; /* Ensure search input keeps its padding */
+        padding: 10px !important; 
         border: none !important;
         background: transparent !important;
     }
-    
+
     /* Protected nav links */
     header nav .nav-links {
         display: flex !important;
         gap: 20px !important;
         align-items: center !important;
     }
-    
+
     /* Rest of your profile styles - all scoped */
     .profile-page .readonly-email {
-        background-color: #f5f0e9;
+        background-color: #e6e6e6; 
         cursor: not-allowed;
-        border-bottom: 1px solid #c9b8a5;
+        border-bottom: 1px solid #999;
     }
-    
+
     .profile-page .password-toggle {
         cursor: pointer;
         position: absolute;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
-        color: #8a6d4b;
+        color: #333; 
     }
-    
+
     .profile-page .password-section {
-        background: #f0e6d9;
+        background: #f4f4f4; 
         padding: 25px;
         border-radius: 8px;
         margin-top: 30px;
         box-shadow: 
-            inset 0 0 15px rgba(138, 109, 75, 0.1),
-            0 0 0 1px rgba(138, 109, 75, 0.1);
-        border: 1px solid #e0d5c8;
+            inset 0 0 15px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ccc; 
     }
-    
+
     .profile-page .profile-container h2 {
-        color: #5a4a3a;
+        color: #333; 
         font-weight: 900;
         margin-bottom: 30px;
         font-size: 28px;
     }
-    
+
     .profile-page .btn-primary {
-        background-color: #8a6d4b;
-        border-color: #8a6d4b;
+        background-color: #333; 
+        border-color: #333; 
         padding: 12px 25px;
         border-radius: 8px;
         font-weight: 600;
         transition: all 0.3s ease;
-        color: #fff9f2;
+        color: #fff; 
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
-    
-    /* ... rest of your styles similarly scoped ... */
-</style>
+
+    .profile-page .btn-primary:hover {
+        background-color: #555; 
+        border-color: #555;
+    }
+    </style>
 </head>
 <body class="profile-page">
     @include('includes.navigationbar')

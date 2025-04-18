@@ -102,7 +102,7 @@
         <li>
             <a href="/admin/manageAdmin">
                 <i class="fas fa-user-cog"></i>
-                <span class="link-text">Manage Admin</span>
+                <span class="link-text">Update Admin Profile</span>
             </a>
         </li>
         <li>
