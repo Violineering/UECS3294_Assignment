@@ -17,10 +17,10 @@ use App\Http\Controllers\CategoryController;
 // Public Routes
 Route::get('/', [WelcomeController::class, 'welcome'])
     ->name('welcome')
-    ->middleware('prevent.admin'); // Apply the middleware here
+    ->middleware('prevent.admin');
 
 // Book Routes
-Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books')->middleware('auth');
+
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
 Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book');
 Route::get('/bookCategories', [CategoryController::class, 'ListCategories'])->name('book.bookCategories');
@@ -78,6 +78,7 @@ Route::middleware(['auth', 'user'])->group(function () {
 
     Route::get('/contactUsResponses', [ContactUsController::class, 'index'])->name('user.contactUsResponses');
     Route::delete('/contact-us/{id}', [ContactUsController::class, 'delete'])->name('messages.delete');
+    Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books');
 });
 
 // Signup Routes
@@ -89,9 +90,5 @@ Route::middleware('auth')->prefix('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('auth.profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
-<<<<<<< HEAD
-=======
-
->>>>>>> 44602e371fcfb916d78c3e8abc27514fb84490e7
 Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 Auth::routes();
