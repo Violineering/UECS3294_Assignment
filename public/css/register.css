@@ -1,29 +1,30 @@
 @import url('https://rsms.me/inter/inter-ui.css');
+
 ::selection {
-    background: #8a6d4b;
+    background: #a3886b;
     color: white;
 }
 
 ::-webkit-selection {
-    background: #8a6d4b;
+    background: #a3886b;
     color: white;
 }
 
 ::-moz-selection {
-    background: #8a6d4b;
+    background: #a3886b;
     color: white;
 }
 
 body {
-    background: #e2e2e5;
+    background: #f0f0f3;
     font-family: 'Inter UI', sans-serif;
     margin: 0;
     padding: 20px;
-    color: #5a4a3a;
+    color: #5b4c3c;
 }
 
 .page {
-    background: #e2e2e5;
+    background: #f0f0f3;
     display: flex;
     flex-direction: column;
     height: calc(100% - 40px);
@@ -42,27 +43,27 @@ body {
 
 .container {
     display: flex;
-    height: 320px;
+    height: 450px;
     margin: 0 auto;
-    width: 640px;
+    width: 680px;
 }
 
 @media (max-width: 767px) {
     .container {
         flex-direction: column;
-        height: 630px;
-        width: 320px;
+        height: 650px;
+        width: 340px;
     }
 }
 
 .left {
-    background: #fff9f2;
+    background: #fff6ed;
     height: calc(100% - 40px);
     top: 20px;
     position: relative;
     width: 50%;
-    border-radius: 8px 0 0 8px;
-    box-shadow: inset 0 0 10px rgba(138, 109, 75, 0.05);
+    border-radius: 10px 0 0 10px;
+    box-shadow: inset 0 0 10px rgba(163, 136, 107, 0.05);
 }
 
 @media (max-width: 767px) {
@@ -70,36 +71,36 @@ body {
         height: 100%;
         left: 20px;
         width: calc(100% - 40px);
-        max-height: 270px;
-        border-radius: 8px 8px 0 0;
+        max-height: 280px;
+        border-radius: 10px 10px 0 0;
     }
 }
 
 .login {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: 900;
-    margin: 50px 40px 40px;
-    color: #5a4a3a;
+    margin: 50px 40px 20px;
+    color: #5b4c3c;
     font-family: Arial, sans-serif;
 }
 
 .eula {
-    color: #a08c7a;
+    color: #a08b78;
     font-size: 14px;
     line-height: 1.5;
     margin: 40px;
 }
 
 .right {
-    background: #f0e6d9;
+    background: #f5e9dd;
     box-shadow: 
-        inset 0 0 15px rgba(138, 109, 75, 0.1),
-        0 0 0 1px rgba(138, 109, 75, 0.1);
-    color: #5a4a3a;
+        inset 0 0 15px rgba(163, 136, 107, 0.1),
+        0 0 0 1px rgba(163, 136, 107, 0.1);
+    color: #5b4c3c;
     position: relative;
     width: 50%;
-    border-radius: 0 8px 8px 0;
-    border-left: 1px solid #e0d5c8;
+    border-radius: 0 10px 10px 0;
+    border-left: 1px solid #e4d4c2;
 }
 
 @media (max-width: 767px) {
@@ -107,31 +108,11 @@ body {
         flex-shrink: 0;
         height: 100%;
         width: 100%;
-        max-height: 350px;
-        border-radius: 0 0 8px 8px;
+        max-height: 370px;
+        border-radius: 0 0 10px 10px;
         border-left: none;
-        border-top: 1px solid #e0d5c8;
+        border-top: 1px solid #e4d4c2;
     }
-}
-
-svg {
-    position: absolute;
-    width: 320px;
-}
-
-path {
-    fill: none;
-    stroke: url(#linearGradient);
-    stroke-width: 4;
-    stroke-dasharray: 240 1386;
-}
-
-.linearGradient stop:nth-child(1) {
-    stop-color: #b8a28b;
-}
-
-.linearGradient stop:nth-child(2) {
-    stop-color: #d4c4b2;
 }
 
 .form {
@@ -140,7 +121,7 @@ path {
 }
 
 label {
-    color: #8a6d4b;
+    color: #a3886b;
     display: block;
     font-size: 14px;
     height: 16px;
@@ -151,64 +132,54 @@ label {
 input {
     background: transparent;
     border: 0;
-    color: #5a4a3a;
+    color: #5b4c3c;
     font-size: 16px;
     height: 30px;
     line-height: 30px;
     outline: none !important;
     width: 100%;
-    border-bottom: 1px solid #c9b8a5;
+    border-bottom: 1px solid #c5b2a1;
     transition: border-color 0.3s ease;
 }
 
 input:focus {
-    border-bottom-color: #8a6d4b;
-}
-
-input::-moz-focus-inner { 
-    border: 0; 
+    border-bottom-color: #a3886b;
 }
 
 #submit {
-    color: #5a4a3a;
+    color: #5b4c3c;
     margin-top: 40px;
-    margin-left: 80px;
+    margin-left: 50px;
     transition: all 0.3s ease;
     padding: 0;
     font-weight: bold;
     cursor: pointer;
     width: 100%;
-    /* Text styling */
     text-align: left;
     font-size: 20px;
     height: 30px;
     line-height: 30px;
-    /* Remove all borders and background */
     background: transparent;
     border: none;
-    /* Positioning */
     position: relative;
     z-index: 1;
-    /* Box model */
     box-sizing: border-box;
 }
 
-
 #submit:focus {
     outline: none;
-    color: #f2f2f2;
+    color: #ffffff;
 }
 
 #submit:active {
-    color: #d0d0d2;
+    color: #dddddd;
     transform: translateY(1px);
 }
-
 
 .alert {
     padding: 15px 20px;
     margin: 20px auto;
-    width: 30%;
+    width: 33%;
     text-align: center;
     font-size: 15px;
     border-radius: 8px;
@@ -221,4 +192,10 @@ input::-moz-focus-inner {
     background-color: #ffe5e5;
     color: #d32f2f;
     border: 1px solid #f44336;
+}
+
+.alert-success {
+    color: #4b8a5e;
+    background-color: rgba(75, 138, 92, 0.1);
+    border-color: rgba(75, 138, 92, 0.2);
 }

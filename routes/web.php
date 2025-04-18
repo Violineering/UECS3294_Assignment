@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\AdminBookManagingController;
 use App\Http\Controllers\AdminContactFormController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\SignupController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\AdminManageAdminController;
 use App\Http\Controllers\CartController;
@@ -33,6 +33,9 @@ Route::get('/category/{category}', [CategoryController::class, 'ListBooksByCateg
 Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Signup Routes
+Route::get('/auth/register', [RegisterController::class, 'showRegisterForm'])->name('register');
+Route::post('/auth/register', [RegisterController::class, 'register']);
 
 // Admin Protected Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -81,10 +84,6 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::delete('/contact-us/{id}', [ContactUsController::class, 'delete'])->name('messages.delete');
     Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books');
 });
-
-// Signup Routes
-Route::get('/auth/signup', [SignupController::class, 'showSignupForm'])->name('signup');
-Route::post('/auth/signup', [SignupController::class, 'signup']);
 
 // Profile Routes
 Route::middleware('auth')->prefix('auth')->group(function () {

@@ -8,7 +8,28 @@
 </head>
 <body>
     <div class="page">
+
+        <div class="alert-container">
+            {{-- moved outside .container --}}
+                @if(session('error'))
+                    <div class="alert alert-danger" style="margin: 20px auto; width: 80%; text-align: center;">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @if(session('success'))
+                    <div class="alert alert-success" style="margin: 20px auto; width: 80%; text-align: center;">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if($errors->has('email'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('email') }}
+                    </div>
+                @endif
         <div class="container">
+            
             <div class="left">
                 <div class="login">Welcome Back, Bookworm!</div>
                 <div class="eula">Log in to revisit your reading nook, check your wishlist, and continue your literary adventures.</div>
@@ -37,34 +58,23 @@
                     <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
                 </svg>
                 <div class="form">
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-                    
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                   
                     
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus>
-                        @error('email')
-                            <span style="color: #ff6b6b; font-size: 12px;">{{ $message }}</span>
-                        @enderror
                         
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" required>
-                        @error('password')
-                            <span style="color: #ff6b6b; font-size: 12px;">{{ $message }}</span>
-                        @enderror
                         
                         <input type="submit" id="submit" value="Login">
+
+                        <p style="margin-top: 20px; text-align: center; font-size: 14px;">
+                            Don't have an account?
+                            <a href="{{ route('register') }}" style="color: #8a6d4b; font-weight: bold;">Sign up</a>
+                        </p>
                     </form>
                 </div>
             </div>
@@ -108,10 +118,8 @@
         });
     });
     
-    // Modified submit button event listeners
     const submitButton = document.querySelector('#submit');
     
-    // Handle mouse down (click) event
     submitButton.addEventListener('mousedown', function(e) {
         if (current) current.pause();
         current = anime({
@@ -128,11 +136,9 @@
             }
         });
         
-        // Prevent default to avoid losing focus immediately
         e.preventDefault();
     });
     
-    // Handle focus event (for keyboard navigation)
     submitButton.addEventListener('focus', function(e) {
         if (current) current.pause();
         current = anime({
