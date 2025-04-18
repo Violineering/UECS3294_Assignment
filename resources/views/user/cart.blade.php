@@ -14,7 +14,10 @@
             color: #1d1d1f;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden
+        }
+
+        body{
+            overflow-y: scroll;
         }
 
         h1 {
@@ -106,18 +109,6 @@
         .checkout-btn:hover {
             background: #474544;
             color: #f5f0eb;
-        }
-
-        footer {
-            background-color: #1d1d1f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-        }
-
-        footer p {
-            margin: 0;
         }
 
         @media screen and (max-width: 768px) {
