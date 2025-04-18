@@ -1,5 +1,10 @@
 <style>
     /* Navigation Bar Specific Styles - Scoped to header only */
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     header.navigation-header {
         background-color: #ffffff;
         padding: 20px;

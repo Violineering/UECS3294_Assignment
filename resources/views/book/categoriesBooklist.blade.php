@@ -10,6 +10,7 @@
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
         }
@@ -18,48 +19,58 @@
             font-family: Arial, sans-serif;
             background-color: #f5f0eb;
             color: #1d1d1f;
-            flex: 1; 
+            flex: 1;
         }
 
-        header {
-            background-color: #fff;
+        /* Make the container flex properly */
+        .book-page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .book-header {
+            background-color: #ffffff;
             padding: 20px;
             display: flex;
             justify-content: center;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        nav {
+        .book-header nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 80%;
         }
 
-        .logo {
+        .book-header .logo {
             font-size: 24px;
             font-weight: bold;
         }
 
-        .nav-links {
+        .book-header .nav-links {
             list-style: none;
             display: flex;
             gap: 20px;
+            margin: 0;
+            padding: 0;
         }
 
-        .nav-links li a {
+        .book-header .nav-links li a {
             text-decoration: none;
             color: #1d1d1f;
             font-weight: 500;
         }
 
-        .search-bar input {
+        .book-header .search-bar input {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
-        .create-account {
+        .book-header .create-account {
             background-color: transparent;
             border: 2px solid #1d1d1f;
             padding: 8px 15px;
@@ -67,29 +78,39 @@
             font-weight: bold;
         }
 
+        /* MAIN (Book List) */
+        .book-main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
         .book-list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 40px;
-            flex: 1; 
+            justify-content: center;
+            padding: 40px 20px;
+            max-width: 1400px;
+            width: 100%;
         }
 
+        /* Book Cards */
         .book-card {
             background-color: white;
-            width: 300px;
+            width: 280px;
             margin: 20px;
             padding: 20px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
+            border-radius: 8px;
         }
 
         .book-card img {
-            width: 200px; 
-            height: 300px; 
-            object-fit: cover; 
+            width: 200px;
+            height: 300px;
+            object-fit: cover;
             margin-bottom: 15px;
-            border-radius: 8px; 
+            border-radius: 8px;
         }
 
         .book-card h2 {
@@ -110,50 +131,44 @@
             border: none;
             cursor: pointer;
             font-weight: bold;
+            border-radius: 5px;
         }
 
-        footer {
-            background-color: #1d1d1f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-        }
-
-        footer p {
-            margin: 0;
-        }
     </style>
 </head>
 <body>
-    @include('includes.navigationbar')
+    <div class="book-page">
+        @include('includes.navigationbar')
 
-    <!-- Category Filter Section -->
-    <section class="category-filter">
-        <h2>Filter by Category</h2>
-        <ul class="category-list">
-            @foreach ($categories as $category)
-                <li><a href="{{ route('book.list_by_category', $category->genre) }}" class="category-link">{{ $category->genre }}</a></li>
+        <main class="book-main">
+        <!-- Category Filter Section -->
+        <section class="category-filter">
+            <h2>Filter by Category</h2>
+            <ul class="category-list">
+                @foreach ($categories as $category)
+                    <li><a href="{{ route('book.list_by_category', $category->genre) }}" class="category-link">{{ $category->genre }}</a></li>
+                @endforeach
+            </ul>
+        </section>
+
+        <!-- Book List Section -->
+
+        <section class="book-list">
+            @foreach($books as $book)
+                <div class="book-card">
+                    <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
+                    <h2>{{ $book->title }}</h2>
+                    <p>Author: {{ $book->author }}</p>
+                    <p>{{ $book->description }}</p>
+                    <button class="read-more-btn" onclick="window.location.href='{{ route('book.introduction_book', $book->id) }}'">Read More →</button>
+                </div>
             @endforeach
-        </ul>
-    </section>
+        </section>    
+        </main>                                       
 
-    <!-- Book List Section -->
+        @include('includes.footer')
 
-    <section class="book-list">
-        @foreach($books as $book)
-            <div class="book-card">
-                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
-                <h2>{{ $book->title }}</h2>
-                <p>Author: {{ $book->author }}</p>
-                <p>{{ $book->description }}</p>
-                <button class="read-more-btn" onclick="window.location.href='{{ route('book.introduction_book', $book->id) }}'">Read More →</button>
-            </div>
-        @endforeach
-    </section>                                           
-
-    @include('includes.footer')
-
-    <script src="{{ asset('js/script.js') }}"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
+        </div>
 </body>
 </html>
