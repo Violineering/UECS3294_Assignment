@@ -1,0 +1,125 @@
+
+::selection {
+    background: #333;
+    color: white;
+}
+::-webkit-selection {
+    background: #333;
+    color: white;
+}
+::-moz-selection {
+    background: #333;
+    color: white;
+}
+
+body.profile-page {
+    background: #f5f0eb; 
+    font-family: 'Inter UI', sans-serif;
+    color: #333;
+    padding-top: 0; 
+}
+
+.profile-page .profile-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 40px;
+    border-radius: 8px;
+    background: white; 
+    box-shadow: 
+        inset 0 0 10px rgba(0, 0, 0, 0.05),
+        0 2px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.profile-page .profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 25px;
+    border: 3px solid #ccc; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-page .profile-img:hover {
+    transform: scale(1.05);
+}
+
+.profile-page .profile-container .form-control {
+    border-radius: 0;
+    padding: 8px 10px; 
+    border: 0;
+    border-bottom: 1px solid #999; 
+    background: transparent;
+    color: #333; 
+    transition: border-color 0.3s ease;
+}
+
+.profile-page .profile-container .form-control:focus {
+    border-bottom-color: #000; 
+    box-shadow: none;
+    background: transparent;
+}
+
+header nav .search-container input {
+    padding: 10px !important; 
+    border: none !important;
+    background: transparent !important;
+}
+
+header nav .nav-links {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important;
+}
+
+.profile-page .readonly-email {
+    background-color: #e6e6e6; 
+    cursor: not-allowed;
+    border-bottom: 1px solid #999;
+}
+
+.profile-page .password-toggle {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333; 
+}
+
+.profile-page .password-section {
+    background: #f4f4f4; 
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+    box-shadow: 
+        inset 0 0 15px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc; 
+}
+
+.profile-page .profile-container h2 {
+    color: #333; 
+    font-weight: 900;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.profile-page .btn-primary {
+    background-color: #333; 
+    border-color: #333; 
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: #fff; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-page .btn-primary:hover {
+    background-color: #555; 
+    border-color: #555;
+}
