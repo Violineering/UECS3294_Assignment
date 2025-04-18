@@ -21,11 +21,15 @@ class WelcomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function welcome()
-    {
-        $books = Book::take(9)->get(); 
+{
+    // Fetch all books and fantasy books
+    $books = Book::all(); // General books
+    $fantacyBooks = Book::where('genre', 'fantasy')->get(); // Fantasy books
 
-        // Pass books to the welcome page
-        return view('welcome', compact('books'));
-    }
+    // Pass both collections to the view
+    return view('welcome', compact('books', 'fantacyBooks'));
+}
+
+
 
 }

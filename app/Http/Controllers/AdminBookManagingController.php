@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +16,8 @@ class AdminBookManagingController extends Controller
         return view('admin.bookManaging', ['books' => $books]);
     }
 
-    public function updateBook(Request $req){
+    public function updateBook(Request $req){ 
+
         $book = Book::find($req->id);
         
         if (!$book) {
@@ -71,7 +71,8 @@ class AdminBookManagingController extends Controller
             $pdfFilePath = $req->file('pdf_file')->store('pdfs', 'public');
             $book->pdf_file = $pdfFilePath; 
         }
-    
+
+
         $book->save();
     
         return redirect()->route('admin.bookManaging')->with('success', 'Book updated successfully.');

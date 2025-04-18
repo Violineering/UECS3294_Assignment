@@ -192,7 +192,7 @@
     <div class="form-container">
         <h1>Update Book</h1>
 
-        <form action="updateBook" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.updateBook') }}" method="POST" enctype="multipart/form-data">
             @csrf
 			
 		<input type = "hidden" name = "id" value="{{ $book['id'] }}" >

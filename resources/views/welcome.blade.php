@@ -55,7 +55,7 @@
 
         .main-canvas {
             display: flex;
-            margin: -30px 100px 20px 100px;
+            margin: 10px 100px 20px 100px;
         }
 
         .hero {
@@ -88,6 +88,13 @@
             display: inline-block;
             margin-top: 20px;
             text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s; 
+            border-radius: 5px; 
+        }
+
+        .explore-btn:hover {
+            background-color: #333;
+            transform: scale(1.05);
         }
 
         /* Book Showcase */
@@ -146,8 +153,15 @@
             cursor: pointer;
             font-size: 24px;
             margin-top: 10px;
+            margin-bottom: 80px;
             background: none;
             border: none;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .nav-btn:hover {
+            color: #555;
+            transform: scale(1.3);
         }
 
         .button-container {
@@ -167,24 +181,25 @@
         .best-seller {
             background-color: white;
             padding: 20px;
-            margin: 100px auto 0 auto;
+            margin: 20px auto 20px auto;
             text-align: center;
-            width: 80%;
+            width: 67%;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
         }
         
         .bestSellerBook {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
 
         .bestSellerBookContainer {
             position: relative;
             width: 80%;
             margin: auto;
-            overflow: hidden; /* Hide overflowing books */
+            overflow: hidden;
         }
 
         .book-slide {
@@ -192,7 +207,6 @@
         justify-content: center;
         flex-wrap: wrap;
         gap: 40px;
-        /* New */
         flex-shrink: 0;
     }
 
@@ -248,6 +262,10 @@
             background-color: #1d1d1f;
         }
 
+        .title{
+            margin-bottom: 30px;
+        }
+
 
     </style>
 </head>
@@ -268,7 +286,6 @@
         </section>
 
         <section class="book-showcase">
-            <div class="stats">20k+ Books</div>
             <div class="books-container">
             <div class="books">
                 @foreach($books->take(3) as $book)
@@ -314,8 +331,38 @@
             @endfor
         </div>
 
+    </section>
+
+    <section class="best-seller">
+        <div class="title">
+            <h2 class="badge">Fantasy</h2>
+        </div>
+        <div class="bestSellerBookContainer">
+            <div class="bestSellerBook">
+                @foreach($fantacyBooks->chunk(5) as $chunk)
+                    <div class="book-slide">
+                        @foreach($chunk as $book)
+                            <div class="book-item">
+                                <img src="{{ asset('storage/' . $book->cover_image) }}" alt="{{ $book->title }}">
+                                <h2>{{ $book->title }}</h2>
+                                <p>Author: {{ $book->author }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Dots for Navigation -->
+        <div class="dots">
+            @for ($i = 0; $i < ceil($fantacyBooks->count() / 5); $i++)
+                <span class="dot" onclick="moveToSlide({{ $i }})"></span>
+            @endfor
+        </div>
+        <br>
         <p>Our most popular and trending <strong>eBooks</strong> perfect for any reading mood.</p>
     </section>
+    <br><br>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -355,40 +402,40 @@
         });
 
         document.addEventListener("DOMContentLoaded", function () {
-    const bestSellerBook = document.querySelector(".bestSellerBook");
-    const dots = document.querySelectorAll(".dot");
-    let currentIndex = 0;
-    const totalSlides = document.querySelectorAll(".book-slide").length;
+        const bestSellerBook = document.querySelector(".bestSellerBook");
+        const dots = document.querySelectorAll(".dot");
+        let currentIndex = 0;
+        const totalSlides = document.querySelectorAll(".book-slide").length-1;
 
-    function updateSlider() {
-        bestSellerBook.style.transform = `translateX(${-currentIndex * 100}%)`;
-        dots.forEach((dot, i) => {
-            dot.classList.toggle("active", i === currentIndex);
+        function updateSlider() {
+            bestSellerBook.style.transform = `translateX(${-currentIndex * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("active", i === currentIndex);
+            });
+        }
+
+        function moveToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        function autoScroll() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+
+        let slideInterval = setInterval(autoScroll, 5000);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener("click", () => {
+                moveToSlide(index);
+                clearInterval(slideInterval);
+                slideInterval = setInterval(autoScroll, 5000);
+            });
         });
-    }
 
-    function moveToSlide(index) {
-        currentIndex = index;
         updateSlider();
-    }
-
-    function autoScroll() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateSlider();
-    }
-
-    let slideInterval = setInterval(autoScroll, 5000);
-
-    dots.forEach((dot, index) => {
-        dot.addEventListener("click", () => {
-            moveToSlide(index);
-            clearInterval(slideInterval);
-            slideInterval = setInterval(autoScroll, 5000);
-        });
     });
-
-    updateSlider();
-});
     </script>
 
 @include('includes.footer')

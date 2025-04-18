@@ -19,6 +19,7 @@ Route::get('/', [WelcomeController::class, 'welcome'])
     ->name('welcome')
     ->middleware('prevent.admin');
 
+
 // Book Routes
 
 Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
@@ -40,7 +41,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     
     Route::get('/updateBook/{id}', [AdminBookManagingController::class, 'showUpdate'])
         ->name('admin.showUpdate');
-    Route::post('/updateBook/{id}', [AdminBookManagingController::class, 'updateBook']);
+    Route::post('/updateBook', [AdminBookManagingController::class, 'updateBook'])->name('admin.updateBook');
     
     Route::post('/addBook', [AdminBookManagingController::class, 'addBook'])->name('admin.addBook');
     Route::get('/addBook', function () {
