@@ -9,6 +9,7 @@ class PurchasedBook extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $table = 'purchased_books'; // Specify the table name
     protected $primaryKey = 'id'; // Define primary key
 

@@ -134,10 +134,10 @@
             <p><strong>Pages:</strong> {{ $book->pages }}</p>
             <p><strong>Description:</strong> {{ $book->description }}</p>
             <p><strong>Price:</strong> RM{{ $book->price }}</p>
-            <p class="availability">
+            <p class="availability" style="color: {{ $book->availability === 'Available' ? 'green' : 'red' }};">
                 <strong>Availability:</strong> {{ ucfirst($book->availability) }}
             </p>
-            <button onclick="addToCart({{ $book->id }})" class="add-to-cart-btn" {{ $book->availability === 'out of stock' ? 'disabled' : '' }}>
+            <button onclick="addToCart({{ $book->id }})" class="add-to-cart-btn" {{ $book->availability === 'Not Available' ? 'disabled' : 'Available' }}>
                 Add to Cart
             </button>
             

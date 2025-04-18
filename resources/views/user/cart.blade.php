@@ -9,57 +9,170 @@
         html, body {
             height: 100%;
             margin: 0;
+            background-color: #f5f0eb;
+            font-family: 'Montserrat', sans-serif;
+            color: #1d1d1f;
             display: flex;
             flex-direction: column;
             overflow-x: hidden
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f0eb;
-            color: #1d1d1f;
-            flex: 1;
-            overflow-y: scroll;
+        h1 {
+            color: #474544;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 7px;
+            text-align: center;
+            text-transform: uppercase;
+            margin-top: 40px;
         }
 
+        .cart-container {
+            max-width: 768px;
+            margin: 0 auto 60px;
+            background-color: white;
+            border: 3px solid #474544;
+            padding: 37.5px;
+        }
+
+        .cart-item {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .cart-flex {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .cart-flex input[type="checkbox"] {
+            margin-top: 3px;
+        }
+
+        .item-details {
+            line-height: 1.4;
+            color: #474544;
+        }
+
+        .item-details span:first-child {
+            font-weight: bold;
+        }
+
+        .img-remove-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .img-remove-wrapper img {
+            width: 100px;
+            height: auto;
+        }
+
+        .remove-btn {
+            background: none;
+            border: solid 2px #474544;
+            color: #474544;
+            cursor: pointer;
+            font-size: 0.875em;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            background: #474544;
+            color: #f5f0eb;
+        }
+
+        .checkout-btn {
+            background: none;
+            border: solid 2px #474544;
+            color: #474544;
+            cursor: pointer;
+            font-size: 0.875em;
+            font-weight: bold;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: #474544;
+            color: #f5f0eb;
+        }
+
+        footer {
+            background-color: #1d1d1f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media screen and (max-width: 768px) {
+            .cart-container {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .img-remove-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 
 <body>
-    @include('includes.navigationbar') <!-- Include the navigation bar -->
+    @include('includes.navigationbar') 
 
     <form action="{{ route('cart.checkout') }}" method="GET">
         @csrf
-        <h1>Shopping Cart ({{session('cart_count')}})</h1>
+        <h1>&bull; Shopping Cart ({{session('cart_count')}}) &bull;</h1><br>
+
         <div class="cart-container">
+            <!-- Display cart items -->
             @if($cartItems->count() > 0)
-            <ul>
+                <ul>
                 @foreach($cartItems as $item)
                     <div class="cart-item">
-                        <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
-                        
-                        <span>{{ $item->title }}</span><br>
-                        <span>RM {{ $item->price }}</span><br>
-                        <img src="{{ asset('storage/' . $item->cover_image) }}" alt="Cover of {{ $item->title }}" style="width: 100px; height: auto;"><br>  
-        
-                        <!-- Pass additional data as hidden inputs -->
-                        <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->price }}">
-                        <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->title }}">
-                        <input type="hidden" name="cart_data[{{ $item->id }}][cover_image]" value="{{ $item->cover_image }}">
+                        <div class="cart-flex">
+                            <input type="checkbox" name="selected_items[]" value="{{ $item->id }}">
+                            <div class="item-details">
+                                <span>{{ $item->book->title }}</span><br>
+                                <span>RM {{ $item->book->price }}</span>
+                            </div>
+                        </div>
 
-                        <!-- Remove button -->
-                        <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})">Remove</button>
+                        <div class="img-remove-wrapper">
+                            <img src="{{ asset('storage/' . $item->book->cover_image) }}" alt="Cover of {{ $item->book->title }}">
+                            <button type="button" class="remove-btn" onclick="removeFromCart({{ $item->id }})">Remove</button>
+                        </div>
+
+                        <input type="hidden" name="cart_data[{{ $item->id }}][price]" value="{{ $item->book->price }}">
+                        <input type="hidden" name="cart_data[{{ $item->id }}][title]" value="{{ $item->book->title }}">
+                        <input type="hidden" name="cart_data[{{ $item->id }}][cover_image]" value="{{ $item->book->cover_image }}">
                     </div>
                 @endforeach
-            </ul>
-            <button type="submit" class="checkout-btn">Checkout Selected Items</button>
-        @else
-            <p>Your cart is empty.</p>
-        @endif
+                </ul>
+                <button type="submit" class="checkout-btn">Checkout Selected Items</button>
+            @else
+                <p>Your cart is empty.</p>
+            @endif
         </div>
     </form>
-
-    <!-- JavaScript for handling the "Remove" button -->
     <script>
         function removeFromCart(itemId) {
             const form = document.createElement('form');
