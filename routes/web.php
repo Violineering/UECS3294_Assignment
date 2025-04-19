@@ -22,17 +22,17 @@ Route::get('/', [WelcomeController::class, 'welcome'])
 
 // Book Routes
 
-Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist');
-Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book');
-Route::get('/bookCategories', [CategoryController::class, 'ListCategories'])->name('book.bookCategories');
-Route::get('/category/{category}', [CategoryController::class, 'ListBooksByCategory'])->name('book.list_by_category');
-
+Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.booklist')->middleware('prevent.admin');
+Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book')->middleware('prevent.admin');
+Route::get('/bookCategories', [CategoryController::class, 'ListCategories'])->name('book.bookCategories')->middleware('prevent.admin');
+Route::get('/category/{category}', [CategoryController::class, 'ListBooksByCategory'])->name('book.list_by_category')->middleware('prevent.admin');
 
 
 // Authentication Routes
 Route::get('/auth/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/auth/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
 // Signup Routes
 Route::get('/auth/register', [RegisterController::class, 'showRegisterForm'])->name('register');
 Route::post('/auth/register', [RegisterController::class, 'register']);
