@@ -25,7 +25,6 @@ class CreateTblBooksTable extends Migration
             $table->enum('availability', ['Available', 'Not Available'])->default('Available');
             $table->timestamp('created_at')->useCurrent(); 
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate(); 
-            $table->integer('stock')->nullable(); 
             $table->string('pdf_file', 255)->nullable(); 
             $table->decimal('price', 8, 2); 
         });
