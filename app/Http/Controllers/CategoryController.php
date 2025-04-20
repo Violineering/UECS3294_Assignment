@@ -15,9 +15,9 @@ class CategoryController extends Controller
 
     public function ListBooksByCategory($category)
     {
-        $books = Book::where('genre', $category)->get(); // Filter books by genre/category
+        $books = Book::where('genre', $category)->get(); 
 
-        return view('book.bookList', compact('books')); // Pass the filtered books to the view
+        return view('book.bookList', compact('books'));
     }
 
 }
