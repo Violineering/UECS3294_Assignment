@@ -9,9 +9,8 @@ class AdminManageAdminController extends Controller
 {
     public function showAdmin()
 {
-    $user = auth()->user(); // Get the currently logged-in user
+    $user = auth()->user(); 
 
-    // OPTIONAL: make sure they are admin
     if ($user->role !== 'admin') {
         abort(403, 'Unauthorized access.');
     }

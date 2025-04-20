@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +20,33 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
 
+
+    public function showLoginForm()
+    {
+        return view('auth.login'); 
+    }
+
+    //User Login
+    public function login(Request $request)
+{
+    // Validate the form data
+    $validated = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:6',
+    ]);
+
+    
+    if (Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $request->remember)) {
+        //If login successful redirect user to main page
+        return redirect()->intended('/'); 
+    }
+
+    // If authentication fails, redirect back with an error message
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ]);
+}
     public function logout(Request $request)
     {
         Auth::logout();
