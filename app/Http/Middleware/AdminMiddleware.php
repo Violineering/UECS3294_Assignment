@@ -16,15 +16,15 @@ class AdminMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle($request, Closure $next)
-{
-    if (!Auth::check()) {
-        return redirect()->route('login');
-    }
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
 
-    if (!Gate::allows('isAdmin')) {
-        abort(403, 'Access denied');
-    }
+        if (!Gate::allows('isAdmin')) {
+            abort(403, 'Access denied');
+        }
 
-    return $next($request);
-}
+        return $next($request);
+    }
 }
