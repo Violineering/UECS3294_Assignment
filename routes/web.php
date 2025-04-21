@@ -26,7 +26,6 @@ Route::get('/book/booklist', [BookController::class, 'ListBook'])->name('book.bo
 Route::get('/book/{id}', [BookController::class, 'showBook'])->name('book.introduction_book')->middleware('prevent.admin');
 Route::get('/bookCategories', [CategoryController::class, 'ListCategories'])->name('book.bookCategories')->middleware('prevent.admin');
 Route::get('/category/{category}', [CategoryController::class, 'ListBooksByCategory'])->name('book.list_by_category')->middleware('prevent.admin');
-Route::get('/book/{book_id}', [BookController::class, 'showBook'])->name('book.introduction_book')->middleware('prevent.admin');
 
 
 // Authentication Routes
