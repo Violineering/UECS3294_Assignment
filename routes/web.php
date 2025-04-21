@@ -83,12 +83,9 @@ Route::middleware(['auth', 'user'])->group(function () {
     Route::get('/contactUsResponses', [ContactUsController::class, 'index'])->name('user.contactUsResponses');
     Route::delete('/contact-us/{id}', [ContactUsController::class, 'delete'])->name('messages.delete');
     Route::get('/purchased_books', [BookController::class, 'purchasedBooks'])->name('book.purchased_books');
-});
-
-// Profile Routes
-Route::middleware('auth')->prefix('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('auth.profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('auth.profile.update');
 });
+
 Route::get('/admin/manageAdmin', [AdminManageAdminController::class, 'showAdmin']);
 Auth::routes();
