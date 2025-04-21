@@ -131,19 +131,21 @@
         @if(collect($purchasedBooks)->isEmpty())
             <p style="text-align: center; width: 100%;">You haven't purchased any books yet.</p>
         @else
-        @foreach($purchasedBooks as $purchasedBook)
-            <div class="book-card">
-                <img src="{{ asset('storage/' . $purchasedBook->book->cover_image) }}" alt="{{ $purchasedBook->book->title }}">
-                <h2>{{ $purchasedBook->book->title }}</h2>
-                <p>Purchased on: {{ $purchasedBook->purchased_datetime }}</p>
+            @foreach($purchasedBooks as $purchasedBook)
+                @if($purchasedBook->book)
+                    <div class="book-card">
+                        <img src="{{ asset('storage/' . $purchasedBook->cover_image) }}" alt="{{ $purchasedBook->title }}">
+                        <h2>{{ $purchasedBook->title }}</h2>
+                        <p>Purchased on: {{ $purchasedBook->purchased_datetime }}</p>
 
-                <button class="read-more-btn" onclick="window.location.href='{{ route('book.introduction_book', $purchasedBook->book->id) }}'">Read More →</button>
+                        <button class="read-more-btn" onclick="window.location.href='{{ route('book.introduction_book', $purchasedBook->book->id) }}'">Read More →</button>
 
-                @if($purchasedBook->book->pdf_file)
-                    <a href="{{ asset('storage/' . $purchasedBook->book->pdf_file) }}" class="download-btn" target="_blank">Download PDF</a>
+                        @if($purchasedBook->pdf_file)
+                            <a href="{{ asset('storage/' . $purchasedBook->pdf_file) }}" class="download-btn" target="_blank">Download PDF</a>
+                        @endif
+                    </div>
                 @endif
-            </div>
-        @endforeach
+            @endforeach
         @endif
     </section>
 
